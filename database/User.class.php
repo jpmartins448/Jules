@@ -43,42 +43,45 @@ class User {
         return $this->role;
     }
 
-    static function getUserWithPassword(PDO $db, string $email, string $password) : ?User {
-        $stmt = $db->prepare('
-          SELECT id, username, email, name, role
-          FROM User
-          WHERE lower(email) = ? AND password = ?
-        ');
+    static function getUserWithPassword(PDO $db, string $email, string $password): ?User {
+      $stmt = $db->prepare('
+          SELECT * FROM users
+          WHERE lower(email) = ?
+      ');
+      $stmt->execute([strtolower($email)]);
+      $user = $stmt->fetch();
   
-        $stmt->execute(array(strtolower($email), sha1($password)));
-    
-        if ($user = $stmt->fetch()) {
+      if ($user && password_verify($password, $user['password'])) {
           return new User(
-            $user['id'],
-            $user['name'],
-            $user['email'],
-            $user['role']
+              $user['id'],
+              $user['username'],
+              $user['email'],
+              $user['name'],
+              $user['role']
           );
-        } else return null;
+      } else {
+          return null;
       }
+  }
   
-      static function getUser(PDO $db, int $id) : User {
-        $stmt = $db->prepare('
-          SELECT id, username, email, name, role
-          FROM User
-          WHERE lower(email) = ? AND password = ?
-        ');
-  
-        $stmt->execute(array($id));
-        $customer = $stmt->fetch();
-        
-        return new User(
-            $user['id'],
-            $user['name'],
-            $user['email'],
-            $user['role']
-        );
-      }
+  static function getUser(PDO $db, int $id): User {
+    $stmt = $db->prepare('
+        SELECT id, username, email, name, role
+        FROM users
+        WHERE id = ?
+    ');
+
+    $stmt->execute([$id]);
+    $user = $stmt->fetch();
+
+    return new User(
+        $user['id'],
+        $user['username'],
+        $user['email'],
+        $user['name'],
+        $user['role']
+    );
+}
   
     }
 

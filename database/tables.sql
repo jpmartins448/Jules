@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS users
-DROP TABLE IF EXISTS categories
-DROP TABLE IF EXISTS services
-DROP TABLE IF EXISTS orders
-DROP TABLE IF EXISTS messages
-DROP TABLE IF EXISTS ratings
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS ratings;
 
 
 
@@ -14,7 +14,7 @@ CREATE TABLE users (
   password TEXT NOT NULL, -- stored as hash
   email TEXT NOT NULL,
   name TEXT,
-  role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin',))
+  role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin'))
 );
 
 -- Create table: Categories
