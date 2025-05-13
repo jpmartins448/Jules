@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS users
+DROP TABLE IF EXISTS categories
+DROP TABLE IF EXISTS services
+DROP TABLE IF EXISTS orders
+DROP TABLE IF EXISTS messages
+DROP TABLE IF EXISTS ratings
+
+
 
 -- Create users table
 CREATE TABLE users (
