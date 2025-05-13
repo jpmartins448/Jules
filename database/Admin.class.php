@@ -1,5 +1,5 @@
 <?php
-require_once('User.php');
+require_once('User.class.php');
 
 class Admin extends User {
 
