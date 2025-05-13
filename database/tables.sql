@@ -1,10 +1,12 @@
+
+-- Create users table
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL, -- stored as hash
   email TEXT NOT NULL,
   name TEXT,
-  role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin'))
+  role TEXT DEFAULT 'client' CHECK(role IN ('client', 'admin', 'freelancer'))
 );
 
 -- Create table: Categories
