@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Music Shop</title>
+    <title>Freelancerz </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
@@ -18,7 +18,7 @@
   <body>
 
     <header>
-      <h1><a href="/">Music Shop</a></h1>
+      <h1><a href="/">Freelancerz</a></h1>
       <?php 
         if ($session->isLoggedIn()) drawLogoutForm($session);
         else drawLoginForm($session);
@@ -40,7 +40,7 @@
     </main>
 
     <footer>
-      LTW Music Example &copy; 2022
+      Frelancerz &copy; 2025
     </footer>
   </body>
 </html>

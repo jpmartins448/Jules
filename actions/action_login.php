@@ -9,11 +9,11 @@
 
   $db = getDatabaseConnection();
 
-  $user = User::getCustomerWithPassword($db, $_POST['email'], $_POST['password']);
+  $user = User::UserWithPassword($db, $_POST['email'], $_POST['password']);
 
   if ($user) {
     $session->setId($user->id);
-    $session->setName($user->name());
+    $session->setName($user->name);
     $session->addMessage('success', 'Login successful!');
   } else {
     $session->addMessage('error', 'Wrong password!');
