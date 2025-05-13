@@ -6,7 +6,7 @@ CREATE TABLE users (
   password TEXT NOT NULL, -- stored as hash
   email TEXT NOT NULL,
   name TEXT,
-  role TEXT DEFAULT 'client' CHECK(role IN ('client', 'admin', 'freelancer'))
+  role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin',))
 );
 
 -- Create table: Categories
