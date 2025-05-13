@@ -19,5 +19,5 @@
     $session->addMessage('error', 'Wrong password!');
   }
 
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
+  header('Location: pages/profile' . $_SERVER['HTTP_REFERER']);
 ?>

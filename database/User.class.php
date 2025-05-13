@@ -56,7 +56,7 @@ class User {
           return new User(
             $user['id'],
             $user['name'],
-            $user['email']
+            $user['email'],
             $user['role']
           );
         } else return null;
@@ -75,7 +75,7 @@ class User {
         return new User(
             $user['id'],
             $user['name'],
-            $user['email']
+            $user['email'],
             $user['role']
         );
       }
