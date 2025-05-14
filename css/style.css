@@ -253,6 +253,78 @@ form.register-form {
   .dropdown-menu button:hover {
     background-color: #f0f0f0;
   } 
+
+  /* General page layout */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  main {
+    padding: 40px;
+  }
+  
+  /* Profile heading */
+  h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #111;
+  }
+  
+  /* Profile form styling */
+  form.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 600px;
+  }
+  
+  /* Label */
+  form.profile label {
+    width: 120px;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  
+  /* Input field */
+  form.profile input[type="text"],
+  form.profile input[type="email"],
+  form.profile input[type="username"] {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+  }
+  
+  form.profile input:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  /* Save button */
+  form.profile button {
+    margin-left: 12px;
+    padding: 10px 18px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  form.profile button:hover {
+    background-color: #0056b3;
+  }
+  
+  
   
   
   

@@ -48,6 +48,18 @@ class User {
         $stmt = $db->prepare('UPDATE users SET name = ? WHERE id = ?');
         return $stmt->execute([$this->name, $this->id]);
     }
+
+    public function setEmail(PDO $db, string $newEmail): bool {
+        $this->email = htmlspecialchars(trim($newEmail));
+        $stmt = $db->prepare('UPDATE users SET email = ? WHERE id = ?');
+        return $stmt->execute([$this->email, $this->id]);
+    }
+
+    public function setUsername(PDO $db, string $newUserName): bool {
+        $this->username = htmlspecialchars(trim($newUserName));
+        $stmt = $db->prepare('UPDATE users SET username = ? WHERE id = ?');
+        return $stmt->execute([$this->username, $this->id]);
+    }
     
 
     static function getUserWithPassword(PDO $db, string $email, string $password): ?User {

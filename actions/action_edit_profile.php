@@ -13,11 +13,17 @@
 
   $user = User::getUser($db, $session->getId());
 
-  if ($user && isset($_POST['name'])) {
+  if (isset($_POST['submit_name'])) {
     $user->setName($db, $_POST['name']);
-    $session->setName($user->getName());        
+    $session->setName($user->getName());
+}
+
+  if (isset($_POST['submit_email'])) {
+    $user->setEmail($db, $_POST['email']);
+}
+  if(isset($_POST['submit_username'])){
+    $user->setUsername($db, $_POST['username']);
   }
-  
 
   header('Location: ../pages/profile.php');
 ?>
