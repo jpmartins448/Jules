@@ -14,11 +14,10 @@ class Category {
     public function getName(): string { return $this->name; }
 
     public static function getAllCategories(PDO $db): array {
-       
-    $stmt = $db->query('SELECT id, name FROM categories ORDER BY name');
-    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Return as simple array
-
-}
+        $stmt = $db->query('SELECT id, name FROM categories ORDER BY name');
+        if (!$stmt) return []; 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public static function getById(PDO $db, int $id): ?Category {
         $stmt = $db->prepare('SELECT * FROM categories WHERE id = ?');

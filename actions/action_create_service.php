@@ -7,7 +7,7 @@ $session = new Session();
 if (!$session->isLoggedIn()) die(header('Location: /'));
 
 require_once(__DIR__ . '/../database/db.php');
-require_once(__DIR__ . '/../database/Service.class.php');
+require_once(__DIR__ . '/../database/Services.class.php');
 
 $db = getDatabaseConnection();
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($service) {
         // Handle image uploads
         if (!empty($_FILES['images']['name'][0])) {
-            $uploadDir = __DIR__ . '/../uploads/services/';
+            $uploadDir = __DIR__ . '/../uploads/images/';
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -39,7 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     if (move_uploaded_file($tmpName, $filePath)) {
                         $isPrimary = ($index === 0); // First image is primary
-                        Service::addImage($db, $service->getId(), 'uploads/services/' . $fileName, $isPrimary);
+                        $imagePath = 'uploads/images/' . $fileName;
+                        Service::addImage($db, $service->getId(), $imagePath, $isPrimary);
+                        if ($isPrimary) {
+                            $service->setThumbnailPath($db, $imagePath);
+                        }
                     }
                 }
             }
@@ -63,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $session->addMessage('success', 'Service created successfully!');
-        header('Location: ../pages/manage_services.php');
+        header('Location: ../pages/loged_in.php');
         exit();
     }
 }

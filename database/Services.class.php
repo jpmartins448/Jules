@@ -11,6 +11,10 @@ class Service {
     private $deliveryTime;
     private $createdAt;
 
+    protected string $username = 'unknown';
+    protected string $thumbnailPath = 'uploads/images/default.png';
+    protected int $rating = 4;
+
     public function __construct(
         int $id,
         int $userId,
@@ -99,4 +103,74 @@ class Service {
         ');
         return $stmt->execute([$serviceId, $videoPath]);
     }
+
+    public static function getAll(PDO $db): array {
+        $stmt = $db->query('
+            SELECT services.*, users.username, si.image_path AS primary_image
+            FROM services
+            JOIN users ON services.user_id = users.id
+            LEFT JOIN service_images si ON services.id = si.service_id AND si.is_primary = 1
+            ORDER BY services.created_at DESC
+        ');
+    
+        $services = [];
+    
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $service = new Service(
+                (int)$row['id'],
+                (int)$row['user_id'],
+                $row['category_id'] ? (int)$row['category_id'] : null,
+                $row['title'],
+                $row['description'],
+                (float)$row['price'],
+                (int)$row['delivery_time'],
+                $row['created_at']
+            );
+    
+            $service->username = $row['username'];
+            $service->thumbnailPath = $row['primary_image'] ?? 'uploads/images/default.png';
+            $service->rating = rand(3, 5); // placeholder
+    
+            $services[] = $service;
+        }
+    
+        return $services;
+    }
+    
+    
+    public function getUsername(): string {
+        return $this->username ?? 'unknown';
+    }
+    
+    public function getThumbnailPath(): string {
+        return '/' . ($this->thumbnailPath ?? 'uploads/images/default.png');
+        }
+    
+    public function getRating(): int {
+        return $this->rating ?? 4;
+    }
+
+    public function setThumbnailPath(PDO $db, string $path): void {
+        // Set all existing images for this service as non-primary
+        $stmt = $db->prepare('
+            UPDATE service_images
+            SET is_primary = 0
+            WHERE service_id = ?
+        ');
+        $stmt->execute([$this->id]);
+    
+        // Then either update the existing image to primary or insert it if missing
+        $stmt = $db->prepare('
+            INSERT INTO service_images (service_id, image_path, is_primary)
+            VALUES (?, ?, 1)
+            ON CONFLICT(service_id, image_path) DO UPDATE SET is_primary = 1
+        ');
+        $stmt->execute([$this->id, $path]);
+    
+        // Update the object in memory too
+        $this->thumbnailPath = $path;
+    }
+    
+    
+    
 }
