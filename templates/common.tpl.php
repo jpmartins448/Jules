@@ -22,7 +22,7 @@
       <?php 
          $page = basename($_SERVER['PHP_SELF']);
          if ($session->isLoggedIn()) {
-           drawLogoutForm($session);
+           drawUserMenu($session);
          } elseif ($page !== 'register.php') {
            drawLoginForm($session);
          }
@@ -64,4 +64,34 @@
   <a href="../pages/profile.php" class="username"><?=htmlspecialchars($session->getName())?></a>
     <button type="submit">Logout</button>
   </form>
+<?php } ?>
+
+<?php
+function getInitial($name) {
+    return strtoupper($name[0]);
+}
+
+function getRandomColorClass() {
+    $colors = ['avatar-blue', 'avatar-red', 'avatar-yellow', 'avatar-purple', 'avatar-orange'];
+    return $colors[array_rand($colors)];
+}
+?>
+
+<?php function drawUserMenu(Session $session) { 
+  $initial = htmlspecialchars(getInitial($session->getName()));
+  $colorClass = getRandomColorClass();
+?>
+
+<div class="profile-menu-container">
+  <div class="profile-avatar <?= $colorClass ?>" id="profile-avatar">
+    <?= $initial ?>
+  </div>
+  <div id="dropdown-menu" class="dropdown-menu hidden">
+    <a href="../pages/profile.php"><i class="fa fa-cog"></i> Settings</a>
+    <form action="../actions/action_logout.php" method="post">
+      <button type="submit"><i class="fa fa-door-open"></i> Logout</button>
+    </form>
+  </div>
+</div>
+
 <?php } ?>

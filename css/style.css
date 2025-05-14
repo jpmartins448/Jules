@@ -193,6 +193,70 @@ form.register-form {
   .register-heading .login-link:hover {
     text-decoration: underline;
   }
+
+  .profile-menu-container {
+    position: relative;
+    display: inline-block;
+    margin-right: 30px;
+  }
+  
+  .profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  /* Avatar background color classes (excluding green) */
+  .avatar-blue    { background-color: #007BFF; }
+  .avatar-red     { background-color: #dc3545; }
+  .avatar-yellow  { background-color: #ffc107; color: #000; }
+  .avatar-purple  { background-color: #6f42c1; }
+  .avatar-orange  { background-color: #fd7e14; }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  .dropdown-menu a,
+  .dropdown-menu button {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu a:hover,
+  .dropdown-menu button:hover {
+    background-color: #f0f0f0;
+  } 
+  
+  
+  
+  
   
   
   

@@ -22,7 +22,7 @@ echo "START"; // test marker
     $session->setId($user->getId());
     $session->setName($user->getName());
     $session->addMessage('success', 'Login successful!');
-    header('Location: ../pages/profile.php');
+    header('Location: ../pages/loged_in.php');
   } else {
     $session->addMessage('error', 'Wrong password!');
     header('Location: ../pages/index.php');
