@@ -20,18 +20,22 @@
     <header>
       <h1><a href="/">Freelancerz</a></h1>
       <?php 
-        if ($session->isLoggedIn()) drawLogoutForm($session);
-        else drawLoginForm($session);
+         $page = basename($_SERVER['PHP_SELF']);
+         if ($session->isLoggedIn()) {
+           drawLogoutForm($session);
+         } elseif ($page !== 'register.php') {
+           drawLoginForm($session);
+         }
       ?>
     </header>
   
     <section id="messages">
-      <?php foreach ($session->getMessages() as $messsage) { ?>
-        <article class="<?=$messsage['type']?>">
-          <?=$messsage['text']?>
-        </article>
-      <?php } ?>
-    </section>
+  <?php foreach ($session->getMessages() as $message) { ?>
+    <article class="<?=htmlspecialchars($message['type'])?>">
+      <?=htmlspecialchars($message['text'])?>
+    </article>
+  <?php } ?>
+</section>
 
     <main>
 <?php } ?>
@@ -47,7 +51,7 @@
 <?php } ?>
 
 <?php function drawLoginForm() { ?>
-  <form action="../actions/action_login.php" method="post" class="login">
+  <form action="../actions/action_login.php" method="post" class="auth-form">
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
     <a href="../pages/register.php">Register</a>
@@ -56,8 +60,8 @@
 <?php } ?>
 
 <?php function drawLogoutForm(Session $session) { ?>
-  <form action="../actions/action_logout.php" method="post" class="logout">
-    <a href="../pages/profile.php"><?=$session->getName()?></a>
+  <form action="../actions/action_logout.php" method="post" class="auth-form">
+  <a href="../pages/profile.php" class="username"><?=htmlspecialchars($session->getName())?></a>
     <button type="submit">Logout</button>
   </form>
 <?php } ?>
