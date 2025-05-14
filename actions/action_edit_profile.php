@@ -6,7 +6,7 @@
 
   if (!$session->isLoggedIn()) die(header('Location: /'));
 
-  require_once(__DIR__ . '/../database/connection.db.php');
+  require_once(__DIR__ . '/../database/db.php');
   require_once(__DIR__ . '/../database/customer.class.php');
 
   $db = getDatabaseConnection();
