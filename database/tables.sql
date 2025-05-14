@@ -70,3 +70,18 @@ CREATE TABLE ratings (
   FOREIGN KEY(service_id) REFERENCES services(id),
   FOREIGN KEY(client_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS service_images (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  service_id INTEGER NOT NULL,
+  image_path TEXT NOT NULL,
+  is_primary BOOLEAN DEFAULT 0,
+  FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS service_videos (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  service_id INTEGER NOT NULL,
+  video_path TEXT NOT NULL,
+  FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
+);
