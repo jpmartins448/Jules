@@ -6,7 +6,7 @@
 <form action="../actions/action_edit_profile.php" method="post" class="profile">
 
   <label for="name">  Name:</label>
-  <input id="name" type="text" name="name" value="<?=$user->name?>">
+  <input id="name" type="text" name="name" value="<?=$user->getName()?>">
   
   <button type="submit">Save</button>
 </form>

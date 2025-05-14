@@ -7,18 +7,17 @@
   if (!$session->isLoggedIn()) die(header('Location: /'));
 
   require_once(__DIR__ . '/../database/db.php');
-  require_once(__DIR__ . '/../database/customer.class.php');
+  require_once(__DIR__ . '/../database/User.class.php');
 
   $db = getDatabaseConnection();
 
   $user = User::getUser($db, $session->getId());
 
-  if ($user) {
-    $user->name = $_POST['name'];
-    $user->save($db);
-
-    $session->setName($user->name);
+  if ($user && isset($_POST['name'])) {
+    $user->setName($db, $_POST['name']);
+    $session->setName($user->getName());        
   }
+  
 
   header('Location: ../pages/profile.php');
 ?>

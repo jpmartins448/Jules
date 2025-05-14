@@ -43,6 +43,13 @@ class User {
         return $this->role;
     }
 
+    public function setName(PDO $db, string $newName): bool {
+        $this->name = htmlspecialchars(trim($newName));
+        $stmt = $db->prepare('UPDATE users SET name = ? WHERE id = ?');
+        return $stmt->execute([$this->name, $this->id]);
+    }
+    
+
     static function getUserWithPassword(PDO $db, string $email, string $password): ?User {
       $stmt = $db->prepare('
           SELECT * FROM users
