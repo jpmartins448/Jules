@@ -40,5 +40,20 @@
     public function getMessages() {
       return $this->messages;
     }
+    
+    public function set(string $key, $value) {
+        $_SESSION[$key] = $value;
+    }
+
+    public function get(string $key, $default = null) {
+        return $_SESSION[$key] ?? $default;
+    }
+
+    public function remove(string $key) {
+        unset($_SESSION[$key]);
+    }
+        
+
   }
+
 ?>

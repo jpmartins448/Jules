@@ -54,8 +54,8 @@
 
       <!-- Video -->
       <div class="form-group">
-        <label for="video">Upload Video (Optional)</label>
-        <input type="file" id="video" name="video" accept="video/*">
+        <label for="video">Upload Video (Optional, max 50MB)</label>
+        <input type="file" id="video" name="video" accept="video/*" max-size="52428800">
       </div>
 
       <!-- Submit -->

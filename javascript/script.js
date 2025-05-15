@@ -32,3 +32,9 @@ function scrollRight() {
     }
   }
   
+document.getElementById('video').addEventListener('change', function(e) {
+    if (this.files[0].size > 50 * 1024 * 1024) {
+        alert('File is too large! Max 50MB allowed');
+        this.value = '';
+    }
+});

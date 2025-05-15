@@ -17,9 +17,17 @@ $db = getDatabaseConnection();
 
 // Validate and process form data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!empty($_FILES['video']['name'])) {
+    $maxSize = 50 * 1024 * 1024; // 50MB
+    if ($_FILES['video']['size'] > $maxSize) {
+        $session->addMessage('error', 'Video file is too large (max 50MB)');
+        header('Location: ../pages/create_service.php');
+        exit();
+    }
+}
     $serviceData = [
         'title' => trim($_POST['title'] ?? ''),
-        'description' => trim($_POST['description']),
+        'description' => trim($_POST['description']  ?? ''),
         'price' => (float)$_POST['price'],
         'delivery_time' => (int)$_POST['delivery_time'],
         'category_id' => !empty($_POST['category_id']) ? (int)$_POST['category_id'] : null
@@ -62,25 +70,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Handle video upload
-        if (!empty($_FILES['video']['name'])) {
-            $uploadDir = __DIR__ . '/../uploads/videos/';
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
+        // Handle video upload
+if (!empty($_FILES['video']['name']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = __DIR__ . '/../uploads/videos/';
+    
+    // Create directory if it doesn't exist
+    if (!file_exists($uploadDir) && !mkdir($uploadDir, 0777, true)) {
+        error_log("Failed to create video upload directory");
+        $session->addMessage('error', 'Server configuration error');
+        header('Location: ../pages/create_service.php');
+        exit();
+    }
+
+    // Verify directory is writable
+    if (!is_writable($uploadDir)) {
+        error_log("Upload directory not writable: " . $uploadDir);
+        $session->addMessage('error', 'Server configuration error');
+        header('Location: ../pages/create_service.php');
+        exit();
+    }
+    
+    $allowedExtensions = ['mp4', 'mov', 'avi', 'wmv', 'webm'];
+    $originalName = $_FILES['video']['name'];
+    $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+
+    if (in_array($extension, $allowedExtensions)) {
+        $fileName = uniqid('vid_') . '.' . $extension;
+        $filePath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($_FILES['video']['tmp_name'], $filePath)) {
+            $videoPath = 'uploads/videos/' . $fileName;
+            if (!Service::addVideo($db, $service->getId(), $videoPath)) {
+                error_log("Failed to add video to database");
+                unlink($filePath); // Clean up the file if DB insert failed
             }
-            $allowedExtensions = ['mp4', 'mov', 'avi', 'wmv', 'webm','avchd','flv','3gp'];
-            $originalName = $_FILES['video']['name'];
-            $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION)); 
-            if (in_array($extension, $allowedExtensions)) {
-                if ($_FILES['video']['error'] === UPLOAD_ERR_OK) {
-                    $fileName = uniqid('vid_') . '.' . pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
-                    $filePath = $uploadDir . $fileName;
-                    
-                    if (move_uploaded_file($_FILES['video']['tmp_name'], $filePath)) {
-                        Service::addVideo($db, $service->getId(), 'uploads/videos/' . $fileName);
-                    }
-                }
-            }
+        } else {
+            error_log("Failed to move uploaded file. Error: " . $_FILES['video']['error']);
+            $session->addMessage('error', 'Failed to process video upload');
         }
+    } else {
+        $session->addMessage('error', 'Invalid video format. Allowed: ' . implode(', ', $allowedExtensions));
+    }
+} elseif (!empty($_FILES['video']['name'])) {
+    $session->addMessage('error', 'Video upload error: ' . $_FILES['video']['error']);
+}
 
         $session->addMessage('success', 'Service created successfully!');
         header('Location: ../pages/loged_in.php');
