@@ -18,7 +18,7 @@
   <body>
 
     <header>
-      <h1><a href="/">Freelancerz</a></h1>
+      <h1><a href="/pages/loged_in.php">Freelancerz</a></h1>
       <?php 
          $page = basename($_SERVER['PHP_SELF']);
          if ($session->isLoggedIn()) {

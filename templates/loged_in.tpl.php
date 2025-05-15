@@ -32,7 +32,7 @@
     <div class="service-scroll" id="scroll-container">
       <?php foreach ($services as $s): ?>
         <div class="service-card">
-        <img src="/<?= htmlspecialchars($s->getThumbnailPath()) ?>" class="service-thumb">
+        <img src="<?= htmlspecialchars($s->getThumbnailPath()) ?>" class="service-thumb">
         <div class="service-meta">
             <p><strong><?= htmlspecialchars($s->getUsername()) ?></strong></p>
             <p><?= htmlspecialchars($s->getTitle()) ?></p>
