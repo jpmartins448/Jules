@@ -137,7 +137,66 @@ class Service {
         return $services;
     }
     
-    
+    public static function search(PDO $db, string $search = '', string $category = '', string $sort = '', string $rating = ''): array {
+        $query = '
+            SELECT services.*, users.username, si.image_path AS primary_image, 
+                   AVG(ratings.rating) as avg_rating
+            FROM services
+            JOIN users ON services.user_id = users.id
+            LEFT JOIN service_images si ON services.id = si.service_id AND si.is_primary = 1
+            LEFT JOIN ratings ON services.id = ratings.service_id
+            WHERE 1=1
+        ';
+        $params = [];
+
+        if ($search !== '') {
+            $query .= ' AND (services.title LIKE ? OR services.description LIKE ?)';
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+        }
+        if ($category !== '') {
+            $query .= ' AND services.category_id = ?';
+            $params[] = $category;
+        }
+
+        $query .= ' GROUP BY services.id ';
+
+        if ($rating !== '') {
+            $query .= ' HAVING ROUND(avg_rating) = ?';
+            $params[] = $rating;
+        }
+
+        if ($sort === 'price_asc') {
+            $query .= ' ORDER BY services.price ASC';
+        } elseif ($sort === 'price_desc') {
+            $query .= ' ORDER BY services.price DESC';
+        } else {
+            $query .= ' ORDER BY services.created_at DESC';
+        }
+
+        $stmt = $db->prepare($query);
+        $stmt->execute($params);
+
+        $services = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $service = new Service(
+                (int)$row['id'],
+                (int)$row['user_id'],
+                $row['category_id'] ? (int)$row['category_id'] : null,
+                $row['title'],
+                $row['description'],
+                (float)$row['price'],
+                (int)$row['delivery_time'],
+                $row['created_at']
+            );
+            $service->username = $row['username'];
+            $service->thumbnailPath = $row['primary_image'] ?? 'uploads/images/default.png';
+            $service->rating = $row['avg_rating'] !== null ? round($row['avg_rating']) : 0;
+            $services[] = $service;
+        }
+        return $services;
+    }
+
     public function getUsername(): string {
         return $this->username ?? 'unknown';
     }
@@ -147,7 +206,8 @@ class Service {
         }
     
     public function getRating(): int {
-        return $this->rating ?? 4;
+        // Se rating não estiver definido ou for 0, devolve 3 (ou outro valor)
+        return ($this->rating ?? 3) > 0 ? (int)$this->rating : 3;
     }
 
     public function setThumbnailPath(PDO $db, string $path): void {
@@ -170,7 +230,4 @@ class Service {
         // Update the object in memory too
         $this->thumbnailPath = $path;
     }
-    
-    
-    
 }

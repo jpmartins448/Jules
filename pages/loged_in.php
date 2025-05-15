@@ -19,10 +19,20 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
 require_once(__DIR__ . '/../templates/loged_in.tpl.php');
 
 $db = getDatabaseConnection();
-$services = Service::getAll($db);  // You need to implement this in Service.class.php
+
+// Ler filtros do GET
+$search = $_GET['search'] ?? '';
+$category = $_GET['category'] ?? '';
+$sort = $_GET['sort'] ?? '';
+$rating = $_GET['rating'] ?? '';
+
+// Buscar categorias
 $categories = Category::getAllCategories($db);
 
+// Buscar serviços filtrados (você precisa implementar este método na classe Service)
+$services = Service::search($db, $search, $category, $sort, $rating);
+
 drawHeader($session);
-drawHomepage($services, $categories);
+drawHomepage($services, $categories, $category, $sort, $rating, $search);
 drawFooter();
 ?>
