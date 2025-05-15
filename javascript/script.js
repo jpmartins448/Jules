@@ -38,3 +38,37 @@ document.getElementById('video').addEventListener('change', function(e) {
         this.value = '';
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.querySelector('.close-btn');
+
+  thumbnails.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      lightboxImg.src = thumb.dataset.src || thumb.src;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+});

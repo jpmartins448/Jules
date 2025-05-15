@@ -238,4 +238,44 @@ class Service {
         // Update the object in memory too
         $this->thumbnailPath = $path;
     }
+    public static function getByUser(PDO $db, int $userId): array {
+        $stmt = $db->prepare('
+          SELECT services.*, si.image_path AS primary_image
+          FROM services
+          LEFT JOIN service_images si ON services.id = si.service_id AND si.is_primary = 1
+          WHERE user_id = ?
+          ORDER BY created_at DESC
+        ');
+        $stmt->execute([$userId]);
+      
+        $services = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $service = new Service(
+            (int)$row['id'],
+            (int)$row['user_id'],
+            $row['category_id'] ? (int)$row['category_id'] : null,
+            $row['title'],
+            $row['description'],
+            (float)$row['price'],
+            (int)$row['delivery_time'],
+            $row['created_at']
+          );
+          $service->thumbnailPath = $row['primary_image'] ?? 'uploads/images/default.png';
+          $services[] = $service;
+        }
+        return $services;
+      }
+
+    public static function getServiceImages(PDO $db, int $serviceId): array {
+        $stmt = $db->prepare('SELECT image_path FROM service_images WHERE service_id = ? ORDER BY is_primary DESC');
+        $stmt->execute([$serviceId]);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
+    
+    public static function getServiceVideos(PDO $db, int $serviceId): array {
+        $stmt = $db->prepare('SELECT video_path FROM service_videos WHERE service_id = ?');
+        $stmt->execute([$serviceId]);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
+      
 }

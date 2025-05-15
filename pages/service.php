@@ -14,9 +14,19 @@ if (!$id) die('Service not found.');
 $service = Service::getById($db, (int)$id);
 if (!$service) die('Service not found.');
 
-// This already opens <html>, <head>, <body> and <main>!
+$images = Service::getServiceImages($db, $service->getId());
+$videos = Service::getServiceVideos($db, $service->getId());
+
 drawHeader($session);
 ?>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <span class="close-btn">&times;</span>
+  <div class="lightbox-inner">
+    <img id="lightbox-img" src="" alt="Full Image">
+  </div>
+</div>
 
 <div class="service-detail-container">
   <div class="left-column">
@@ -27,6 +37,29 @@ drawHeader($session);
   <div class="center-column">
     <h1><?= htmlspecialchars($service->getTitle()) ?></h1>
     <p><?= nl2br(htmlspecialchars($service->getDescription())) ?></p>
+
+    <?php if (!empty($images)): ?>
+  <h3>Images</h3>
+  <div class="horizontal-scroll image-gallery">
+  <?php foreach ($images as $index => $img): ?>
+  <img 
+    src="/<?= htmlspecialchars($img) ?>" 
+    alt="Service image" 
+    class="gallery-thumbnail" 
+    data-index="<?= $index ?>">
+<?php endforeach; ?>  
+  </div>
+<?php endif; ?>
+
+    <?php if (!empty($videos)): ?>
+      <h3>Videos</h3>
+      <div class="video-player">
+        <video controls>
+          <source src="/<?= htmlspecialchars($videos[0]) ?>" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    <?php endif; ?>
   </div>
 
   <div class="right-column">
@@ -39,11 +72,12 @@ drawHeader($session);
     </form>
 
     <form action="../pages/chat.php" method="get">
-    <input type="hidden" name="freelancer_id" value="<?= $service->getUserId() ?>">
-    <button type="submit" class="message-btn">Send Message</button>
-  </form>
-
+      <input type="hidden" name="freelancer_id" value="<?= $service->getUserId() ?>">
+      <button type="submit" class="message-btn">Send Message</button>
+    </form>
   </div>
 </div>
+
+
 
 <?php drawFooter(); ?>
