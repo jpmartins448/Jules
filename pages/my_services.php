@@ -32,4 +32,10 @@ drawHeader($session);
   <?php endforeach; ?>
 </div>
 
+<a href="../pages/addservice.php" class="floating-add-button">
+  <i class="fa fa-plus" style="margin-right: 10px;"></i> Add a Service
+</a>
+
+
+
 <?php drawFooter(); ?>
