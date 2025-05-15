@@ -70,20 +70,28 @@ class Service {
 
     // Get service by ID
     public static function getById(PDO $db, int $id): ?Service {
-        $stmt = $db->prepare('SELECT * FROM services WHERE id = ?');
+        $stmt = $db->prepare('
+            SELECT services.*, users.name AS username
+            FROM services
+            JOIN users ON services.user_id = users.id
+            WHERE services.id = ?
+        ');
         $stmt->execute([$id]);
-        $data = $stmt->fetch();
-        
-        return $data ? new Service(
-            (int)$data['id'],
-            (int)$data['user_id'],
-            $data['category_id'] ? (int)$data['category_id'] : null,
-            $data['title'],
-            $data['description'],
-            (float)$data['price'],
-            (int)$data['delivery_time'],
-            $data['created_at']
-        ) : null;
+        $row = $stmt->fetch();
+        if (!$row) return null;
+
+        $service = new Service(
+            $row['id'],
+            $row['user_id'],
+            $row['category_id'],
+            $row['title'],
+            $row['description'],
+            $row['price'],
+            $row['delivery_time'],
+            $row['created_at']
+        );
+        $service->username = $row['username'];
+        return $service;
     }
 
     // Add image to service
