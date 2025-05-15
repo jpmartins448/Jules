@@ -16,7 +16,7 @@
     <script src="../javascript/script.js" defer></script>
   </head>
   <body>
-
+  <div class="page-container">
     <header>
       <h1><a href="/pages/loged_in.php">Freelancerz</a></h1>
       <?php 
@@ -46,6 +46,7 @@
     <footer>
       Frelancerz &copy; 2025
     </footer>
+    </div> <!-- closes .page-container -->
   </body>
 </html>
 <?php } ?>

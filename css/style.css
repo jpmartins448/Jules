@@ -32,14 +32,17 @@ body {
   header {
     background: linear-gradient(90deg, #0e7a57 60%, #007bff 100%);
     color: white;
-    padding: 24px 48px;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    overflow-x: hidden;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    border-bottom-left-radius: 18px;
-    border-bottom-right-radius: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    border-radius: 0;
   }
+  
   header h1, header h2 {
     margin: 0;
     font-weight: 700;
@@ -51,11 +54,15 @@ body {
     color: white;
     text-decoration: none;
   }
+
+
   
   .auth-form {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+    max-width: 100%
   }
   
   .auth-form input,
@@ -464,6 +471,23 @@ body {
   transition: none !important;
 }
 
+.auth-form button {
+  background: white;
+  color: #0e7a57;
+  font-weight: bold;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-form button:hover {
+  background: #0e7a57;
+  color: white;
+}
+
+
 .search-button:hover {
   background: #111 !important;
   color: #fff !important;
@@ -539,7 +563,7 @@ body {
     font-size: 18px;
     letter-spacing: 1px;
   }
-  .service-meta p:nth-child(3::before {
+  .service-meta p:nth-child(3)::before {
     content: '';
   }
   .service-meta p:nth-child(3) .star {
@@ -556,7 +580,7 @@ body {
   border-radius: 6px;
   padding: 8px 16px;
   font-weight: bold;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: all 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
@@ -566,6 +590,146 @@ body {
   box-shadow: none !important;
   filter: none !important;
 }
+
+.service-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  padding: 60px 40px;
+  min-height: 80vh;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 200px;
+}
+
+.freelancer-pic {
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.freelancer-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.center-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-column h1 {
+  margin-bottom: 10px;
+}
+
+.center-column p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.right-column p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.order-btn,
+.message-btn {
+  display: block;
+  width: 160px;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(to right, #00794d, #007aff);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.order-btn:hover,
+.message-btn:hover {
+  opacity: 0.9;
+}
+
+/* 1. Ensure header height and alignment are consistent */
+header {
+  height: 72px; /* Set fixed height */
+  padding: 0 48px; /* Only horizontal padding */
+  box-sizing: border-box;
+  overflow: visible;
+  position: relative; /* Required for dropdown */
+  z-index: 10;
+}
+
+/* 2. Fix profile dropdown positioning */
+.profile-menu-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  top: 100%; /* directly below avatar */
+  right: 0;
+  position: absolute;
+  display: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.profile-menu-container:hover .dropdown-menu {
+  display: block;
+}
+
+/* 3. Fix global layout issues */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: block; /* Remove flex to avoid layout bugs */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+
+
+
+
 
 
 

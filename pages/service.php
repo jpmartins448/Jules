@@ -1,43 +1,48 @@
 <?php
-require_once('../database/Services.class.php');
-require_once('../database/db.php');
+declare(strict_types=1);
+
+require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../database/db.php');
+require_once(__DIR__ . '/../database/Services.class.php');
+require_once(__DIR__ . '/../templates/common.tpl.php');
+
+$session = new Session();
 $db = getDatabaseConnection();
 
 $id = $_GET['id'] ?? null;
 if (!$id) die('Service not found.');
-
-$service = Service::getById($db, $id);
+$service = Service::getById($db, (int)$id);
 if (!$service) die('Service not found.');
+
+// This already opens <html>, <head>, <body> and <main>!
+drawHeader($session);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title><?= htmlspecialchars($service->getTitle()) ?> - Service Details</title>
-  <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
-  <div class="homepage-container" style="max-width: 700px; margin: 40px auto;">
-    <h1 style="font-size:2.2em; margin-bottom: 10px;"><?= htmlspecialchars($service->getTitle()) ?></h1>
-    <div style="margin-bottom: 18px;">
-      <strong>Info:</strong> <?= htmlspecialchars($service->getDescription()) ?>
-    </div>
-    <div style="margin-bottom: 18px;">
-      <strong>Anunciante:</strong> <?= htmlspecialchars($service->getUsername()) ?>
-    </div>
-    <div style="margin-bottom: 18px;">
-      <strong>Preço:</strong> $<?= number_format($service->getPrice(), 2) ?>
-    </div>
-    <!-- Comentários -->
-    <div style="margin-top: 40px;">
-      <h2 style="font-size:1.3em;">Comentários</h2>
-      <form method="post" style="margin-bottom: 20px;">
-        <textarea name="comment" rows="3" style="width:100%; border-radius:6px; border:1px solid #ccc; padding:8px;" placeholder="Escreve o teu comentário..."></textarea>
-        <button type="submit" class="search-button" style="margin-top:8px;">Enviar</button>
-      </form>
-      <!-- Aqui podes listar comentários reais se implementares -->
-      <div style="color:#888;">(Os comentários aparecem aqui...)</div>
-    </div>
+
+<div class="service-detail-container">
+  <div class="left-column">
+    <img src="https://picsum.photos/150?freelancer=<?= $service->getUserId() ?>" class="freelancer-pic">
+    <p class="freelancer-name"><?= htmlspecialchars($service->getUsername()) ?></p>
   </div>
-</body>
-</html>
+
+  <div class="center-column">
+    <h1><?= htmlspecialchars($service->getTitle()) ?></h1>
+    <p><?= nl2br(htmlspecialchars($service->getDescription())) ?></p>
+  </div>
+
+  <div class="right-column">
+    <p><strong>Delivery Time:</strong> <?= $service->getDeliveryTime() ?> days</p>
+    <p><strong>Price:</strong> $<?= number_format($service->getPrice(), 2) ?></p>
+
+    <form action="../actions/action_create_order.php" method="post">
+      <input type="hidden" name="service_id" value="<?= $service->getId() ?>">
+      <button type="submit" class="order-btn">Order</button>
+    </form>
+
+    <form action="../pages/chat.php" method="get">
+      <input type="hidden" name="freelancer_id" value="<?= $service->getUserId() ?>">
+      <button type="submit" class="message-btn">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<?php drawFooter(); ?>
