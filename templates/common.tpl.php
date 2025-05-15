@@ -92,6 +92,7 @@ function getRandomColorClass() {
     <a href="../pages/addservice.php"><i class="fa fa-cog"></i> Add a Service</a>
     <form action="../actions/action_logout.php" method="post">
       <button type="submit"><i class="fa fa-door-open"></i> Logout</button>
+    <a href="../pages/messages.php"><i class="fa fa-envelope"></i> Messages</a>
     </form>
   </div>
 </div>

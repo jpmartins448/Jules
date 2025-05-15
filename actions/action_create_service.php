@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL); 
+
 require_once(__DIR__ . '/../utils/session.php');
 $session = new Session();
 
@@ -31,19 +35,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp']; 
             foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
-                if ($_FILES['images']['error'][$index] === UPLOAD_ERR_OK) {
-                    $fileName = uniqid('img_') . '.' . pathinfo($_FILES['images']['name'][$index], PATHINFO_EXTENSION);
-                    $filePath = $uploadDir . $fileName;
-                    
-                    if (move_uploaded_file($tmpName, $filePath)) {
-                        $isPrimary = ($index === 0); // First image is primary
-                        $imagePath = 'uploads/images/' . $fileName;
-                        Service::addImage($db, $service->getId(), $imagePath, $isPrimary);
-                        if ($isPrimary) {
-                            $service->setThumbnailPath($db, $imagePath);
-                        }
+                if (!isset($_FILES['images']['error'][$index])) continue;
+                if ($_FILES['images']['error'][$index] !== UPLOAD_ERR_OK) continue;
+            
+                $originalName = $_FILES['images']['name'][$index];
+                $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+            
+                if (!in_array($extension, $allowedExtensions)) {
+                    continue;
+                }
+            
+                $fileName = uniqid('img_') . '.' . $extension;
+                $filePath = $uploadDir . $fileName;
+            
+                if (move_uploaded_file($tmpName, $filePath)) {
+                    $isPrimary = ($index === 0);
+                    $imagePath = 'uploads/images/' . $fileName;
+                    Service::addImage($db, $service->getId(), $imagePath, $isPrimary);
+                    if ($isPrimary) {
+                        $service->setThumbnailPath($db, $imagePath);
                     }
                 }
             }

@@ -39,9 +39,10 @@ drawHeader($session);
     </form>
 
     <form action="../pages/chat.php" method="get">
-      <input type="hidden" name="freelancer_id" value="<?= $service->getUserId() ?>">
-      <button type="submit" class="message-btn">Send Message</button>
-    </form>
+    <input type="hidden" name="freelancer_id" value="<?= $service->getUserId() ?>">
+    <button type="submit" class="message-btn">Send Message</button>
+  </form>
+
   </div>
 </div>
 

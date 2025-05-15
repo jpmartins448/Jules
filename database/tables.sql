@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS ratings;
+DROP TABLE IF EXISTS chats;
+DROP TABLE IF EXISTS service_images;
 
 
 
@@ -48,17 +50,6 @@ CREATE TABLE orders (
   FOREIGN KEY(client_id) REFERENCES users(id)
 );
 
--- Create table: Messages (optional)
-CREATE TABLE messages (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  sender_id INTEGER NOT NULL,
-  receiver_id INTEGER NOT NULL,
-  message TEXT NOT NULL,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY(sender_id) REFERENCES users(id),
-  FOREIGN KEY(receiver_id) REFERENCES users(id)
-);
-
 -- Create table: Ratings (optional)
 CREATE TABLE ratings (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -76,7 +67,8 @@ CREATE TABLE IF NOT EXISTS service_images (
   service_id INTEGER NOT NULL,
   image_path TEXT NOT NULL,
   is_primary BOOLEAN DEFAULT 0,
-  FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
+  FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE,
+  UNIQUE(service_id, image_path)
 );
 
 CREATE TABLE IF NOT EXISTS service_videos (
@@ -84,4 +76,21 @@ CREATE TABLE IF NOT EXISTS service_videos (
   service_id INTEGER NOT NULL,
   video_path TEXT NOT NULL,
   FOREIGN KEY(service_id) REFERENCES services(id) ON DELETE CASCADE
+);
+
+CREATE TABLE chats (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  client_id INTEGER NOT NULL,
+  freelancer_id INTEGER NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(client_id, freelancer_id)
+);
+
+CREATE TABLE messages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  chat_id INTEGER NOT NULL,
+  sender_id INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (chat_id) REFERENCES chats(id)
 );
