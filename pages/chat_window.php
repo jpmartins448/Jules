@@ -21,6 +21,13 @@ if (!$chat) {
   die('Chat not found or access denied.');
 }
 
+$db->prepare("
+  UPDATE messages 
+  SET is_read = 1 
+  WHERE chat_id = ? 
+    AND sender_id != ?
+")->execute([$chatId, $userId]);
+
 // Handle new message post
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
   $content = trim($_POST['content']);
@@ -33,7 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
 }
 
 // Fetch messages
-$stmt = $db->prepare("SELECT * FROM messages WHERE chat_id = ? ORDER BY sent_at ASC");
+$stmt = $db->prepare("
+  SELECT messages.*, users.username 
+  FROM messages 
+  JOIN users ON messages.sender_id = users.id 
+  WHERE messages.chat_id = ? 
+  ORDER BY messages.sent_at ASC
+");
 $stmt->execute([$chatId]);
 $messages = $stmt->fetchAll();
 
@@ -44,16 +57,16 @@ drawHeader($session);
 <div style="max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px;">
   <div style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;">
     <?php foreach ($messages as $msg): ?>
-      <div style="margin-bottom: 10px;">
+    <div style="margin-bottom: 10px;">
         <strong style="color: <?= $msg['sender_id'] == $userId ? '#007bff' : '#333' ?>;">
-          <?= $msg['sender_id'] == $userId ? 'You' : 'User #' . $msg['sender_id'] ?>:
+        <?= $msg['sender_id'] == $userId ? 'You' : htmlspecialchars($msg['username']) ?>:
         </strong>
         <?= htmlspecialchars($msg['content']) ?>
         <div style="font-size: 0.8em; color: #999;">
-          <?= $msg['sent_at'] ?>
+        <?= $msg['sent_at'] ?>
         </div>
-      </div>
-    <?php endforeach; ?>
+    </div>
+<?php endforeach; ?>
   </div>
 
   <form method="post" style="display: flex; gap: 10px;">

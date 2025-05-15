@@ -92,5 +92,8 @@ CREATE TABLE messages (
   sender_id INTEGER NOT NULL,
   content TEXT NOT NULL,
   sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  is_read BOOLEAN DEFAULT 0,
   FOREIGN KEY (chat_id) REFERENCES chats(id)
 );
+
+
