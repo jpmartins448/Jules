@@ -33,17 +33,29 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
 
   <div class="service-scroll-wrapper">
     <div class="service-scroll" id="scroll-container">
-      <?php foreach ($services as $s): ?>
-        <div class="service-card">
-          <img src="<?= htmlspecialchars($s->getThumbnailPath()) ?>" class="service-thumb">
-          <div class="service-meta">
-            <p><strong><?= htmlspecialchars($s->getUsername()) ?></strong></p>
-            <p><?= htmlspecialchars($s->getTitle()) ?></p>
-            <p><?= str_repeat('★', $s->getRating()) . str_repeat('☆', 5 - $s->getRating()) ?></p>
-            <p>$<?= number_format($s->getPrice(), 2) ?></p>
-          </div>
+      <?php if (empty($services)): ?>
+        <div style="text-align:center; margin: 60px 0; font-size: 1.3em; color: #888;">
+          Can't find something along your preferences
         </div>
-      <?php endforeach; ?>
+      <?php else: ?>
+        <?php foreach ($services as $s): ?>
+          <div class="service-card">
+            <img src="<?= htmlspecialchars($s->getThumbnailPath()) ?>" class="service-thumb">
+            <div class="service-meta">
+              <p><strong><?= htmlspecialchars($s->getUsername()) ?></strong></p>
+              <p><?= htmlspecialchars($s->getTitle()) ?></p>
+              <p>
+                <?php
+                  $stars = str_repeat('<span class="star">★</span>', $s->getRating()) .
+                           str_repeat('<span class="star-empty">☆</span>', 5 - $s->getRating());
+                  echo $stars;
+                ?>
+              </p>
+              <p>$<?= number_format($s->getPrice(), 2) ?></p>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
     <div class="scroll-arrow" onclick="scrollRight()">→</div>
   </div>
