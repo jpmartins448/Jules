@@ -18,7 +18,7 @@ $db = getDatabaseConnection();
 // Validate and process form data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $serviceData = [
-        'title' => trim($_POST['title']),
+        'title' => trim($_POST['title'] ?? ''),
         'description' => trim($_POST['description']),
         'price' => (float)$_POST['price'],
         'delivery_time' => (int)$_POST['delivery_time'],
@@ -67,13 +67,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-
-            if ($_FILES['video']['error'] === UPLOAD_ERR_OK) {
-                $fileName = uniqid('vid_') . '.' . pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
-                $filePath = $uploadDir . $fileName;
-                
-                if (move_uploaded_file($_FILES['video']['tmp_name'], $filePath)) {
-                    Service::addVideo($db, $service->getId(), 'uploads/videos/' . $fileName);
+            $allowedExtensions = ['mp4', 'mov', 'avi', 'wmv', 'webm','avchd','flv','3gp'];
+            $originalName = $_FILES['video']['name'];
+            $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION)); 
+            if (in_array($extension, $allowedExtensions)) {
+                if ($_FILES['video']['error'] === UPLOAD_ERR_OK) {
+                    $fileName = uniqid('vid_') . '.' . pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
+                    $filePath = $uploadDir . $fileName;
+                    
+                    if (move_uploaded_file($_FILES['video']['tmp_name'], $filePath)) {
+                        Service::addVideo($db, $service->getId(), 'uploads/videos/' . $fileName);
+                    }
                 }
             }
         }
