@@ -12,27 +12,28 @@ if (!$session->isLoggedIn()) {
 $db = getDatabaseConnection();
 $userId = $session->getId();
 
+// In the SQL query:
 $stmt = $db->prepare("
-  SELECT 
-    chats.id,
-    chats.client_id,
-    chats.freelancer_id,
-    users.username AS other_username,
-    (
-      SELECT COUNT(*) 
-      FROM messages 
-      WHERE messages.chat_id = chats.id 
-        AND messages.sender_id != ? 
-        AND messages.is_read = 0
-    ) AS unread_count
-  FROM chats
-  JOIN users ON users.id = 
-    CASE 
-      WHEN chats.client_id = ? THEN chats.freelancer_id 
-      ELSE chats.client_id 
-    END
-  WHERE chats.client_id = ? OR chats.freelancer_id = ?
-  ORDER BY chats.created_at DESC
+    SELECT 
+        chats.id,
+        chats.client_id,
+        chats.freelancer_id,
+        users.username AS other_username,
+        (
+            SELECT COUNT(*) 
+            FROM messages 
+            WHERE messages.chat_id = chats.id 
+                AND messages.sender_id != ? 
+                AND messages.is_read = 0
+        ) AS unread_count
+    FROM chats
+    JOIN users ON users.id = 
+        CASE 
+            WHEN chats.client_id = ? THEN chats.freelancer_id 
+            ELSE chats.client_id 
+        END
+    WHERE chats.client_id = ? OR chats.freelancer_id = ?
+    ORDER BY chats.created_at DESC
 ");
 $stmt->execute([$userId, $userId, $userId, $userId]);
 $chats = $stmt->fetchAll();

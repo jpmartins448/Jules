@@ -4,6 +4,22 @@ require_once(__DIR__ . '/../database/db.php');
 require_once(__DIR__ . '/../database/Services.class.php');
 require_once(__DIR__ . '/../templates/common.tpl.php');
 
+function getOrCreateChatId(PDO $db, int $clientId, int $freelancerId): int {
+    // Check if chat already exists
+    $stmt = $db->prepare("SELECT id FROM chats WHERE client_id = ? AND freelancer_id = ?");
+    $stmt->execute([$clientId, $freelancerId]);
+    $chatId = $stmt->fetchColumn();
+    
+    if (!$chatId) {
+        // Create new chat if it doesn't exist
+        $stmt = $db->prepare("INSERT INTO chats (client_id, freelancer_id) VALUES (?, ?)");
+        $stmt->execute([$clientId, $freelancerId]);
+        $chatId = $db->lastInsertId();
+    }
+    
+    return $chatId;
+}
+
 $session = new Session();
 if (!$session->isLoggedIn()) {
     header('Location: ../pages/login.php');
@@ -65,13 +81,10 @@ drawHeader($session);
                             <?php endif; ?>
                         </td>
                         <td style="padding: 12px; display: flex; gap: 8px;">
-                            <form action="../pages/chat.php" method="get" style="display: inline-block;">
-                                <input type="hidden" name="client_id" value="<?= $order['client_id'] ?>">
-                                <input type="hidden" name="freelancer_id" value="<?= $session->getId() ?>">
-                                <button type="submit" style="padding: 6px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px;">
-                                    Contact Client
-                                </button>
-                            </form>
+                            <a href="../pages/chat_window.php?chat_id=<?= getOrCreateChatId($db, $order['client_id'], $session->getId()) ?>" 
+                               style="padding: 6px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; text-decoration: none;">
+                                Contact Client
+                            </a>
                             <?php if ($order['status'] !== 'completed'): ?>
                                 <form action="../actions/action_complete_order.php" method="post" style="display: inline-block;">
                                     <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
