@@ -24,10 +24,11 @@ drawHeader($session);
       <h3><?= htmlspecialchars($service->getTitle()) ?></h3>
       <p><?= htmlspecialchars($service->getDescription()) ?></p>
       <p><strong>Price:</strong> $<?= $service->getPrice() ?></p>
-      <form action="../actions/action_delete_service.php" method="post" onsubmit="return confirm('Are you sure?');">
+      <form action="manage_orders.php" method="get">
         <input type="hidden" name="service_id" value="<?= $service->getId() ?>">
-        <button type="submit" style="padding:8px 12px; background:#d33; color:white; border:none; border-radius:6px;">Delete</button>
-      </form>
+      <button type="submit" style="margin-top: 10px; padding: 10px 16px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;"> Manage</button>
+    </form>
+
     </div>
   <?php endforeach; ?>
 </div>

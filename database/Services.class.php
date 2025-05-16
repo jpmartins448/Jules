@@ -279,3 +279,17 @@ class Service {
     }
       
 }
+
+class Order {
+    public static function getOrdersByService(PDO $db, int $service_id): array {
+        $stmt = $db->prepare('
+            SELECT orders.*, users.username as client_username
+            FROM orders
+            JOIN users ON orders.client_id = users.id
+            WHERE orders.service_id = ?
+            ORDER BY orders.created_at DESC
+        ');
+        $stmt->execute([$service_id]);
+        return $stmt->fetchAll();
+    }
+}
