@@ -15,8 +15,8 @@
   $db = getDatabaseConnection();
 
   $user = User::getUser($db, $session->getId());
-
-  drawHeader($session);
+  
+  drawHeader($session, 'profile-page');
   drawProfileForm($user);
   drawFooter();
 ?>

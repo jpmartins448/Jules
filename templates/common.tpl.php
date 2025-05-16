@@ -4,7 +4,7 @@
   require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawHeader(Session $session) { ?>
+<?php function drawHeader(Session $session, $bodyClass = '') { ?>
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="../javascript/script.js" defer></script>
   </head>
-  <body>
+  <body<?= $bodyClass ? ' class="' . htmlspecialchars($bodyClass) . '"' : '' ?>>
   <div class="page-container">
     <header>
       <h1><a href="/pages/loged_in.php">Freelancerz</a></h1>
@@ -30,21 +30,20 @@
     </header>
   
     <section id="messages">
-  <?php foreach ($session->getMessages() as $message) { ?>
-    <article class="<?=htmlspecialchars($message['type'])?>">
-      <?=htmlspecialchars($message['text'])?>
-    </article>
-  <?php } ?>
-</section>
+      <?php foreach ($session->getMessages() as $message) { ?>
+        <article class="<?=htmlspecialchars($message['type'])?>">
+          <?=htmlspecialchars($message['text'])?>
+        </article>
+      <?php } ?>
+    </section>
 
     <main>
 <?php } ?>
 
 <?php function drawFooter() { ?>
     </main>
-
     <footer>
-      Frelancerz &copy; 2025
+      Freelancerz &copy; 2025
     </footer>
     </div> <!-- closes .page-container -->
   </body>
@@ -62,7 +61,7 @@
 
 <?php function drawLogoutForm(Session $session) { ?>
   <form action="../actions/action_logout.php" method="post" class="auth-form">
-  <a href="../pages/profile.php" class="username"><?=htmlspecialchars($session->getName())?></a>
+    <a href="../pages/profile.php" class="username"><?=htmlspecialchars($session->getName())?></a>
     <button type="submit">Logout</button>
   </form>
 <?php } ?>
