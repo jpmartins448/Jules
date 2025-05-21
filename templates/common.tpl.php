@@ -87,11 +87,18 @@ function getRandomColorClass() {
     <?= $initial ?>
   </div>
   <div id="dropdown-menu" class="dropdown-menu hidden">
-    <a href="../pages/profile.php"><i class="fa fa-user"></i> Profile</a>
-    <a href="../pages/my_orders.php"><i class="fa fa-list"></i> My Orders</a>
-    <a href="../pages/my_services.php"><i class="fas fa-briefcase"></i> My Services</a>
-    <a href="../pages/messages.php"><i class="fa fa-envelope"></i> Messages</a>
-    <a href="../pages/settings.php"><i class="fa fa-cog"></i> Settings</a>
+    <form action="../pages/profile.php" method="get">
+      <button type="submit"><i class="fa fa-user"></i> Profile</button>
+    </form>
+    <form action="../pages/my_orders.php" method="get">
+      <button type="submit"><i class="fa fa-list"></i> My Orders</button>
+    </form>
+    <form action="../pages/my_services.php" method="get">
+      <button type="submit"><i class="fas fa-briefcase"></i> My Services</button>
+    </form>
+    <form action="../pages/messages.php" method="get">
+      <button type="submit"><i class="fa fa-envelope"></i> Messages</button>
+    </form>
     <form action="../actions/action_logout.php" method="post" style="margin:0;">
       <button type="submit" style="width:100%;text-align:left;"><i class="fa fa-door-open"></i> Logout</button>
     </form>
