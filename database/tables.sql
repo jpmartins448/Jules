@@ -16,6 +16,7 @@ CREATE TABLE users (
   password TEXT NOT NULL, -- stored as hash
   email TEXT NOT NULL,
   name TEXT,
+  profile_picture TEXT,
   role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin'))
 );
 

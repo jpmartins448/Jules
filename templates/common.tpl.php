@@ -2,6 +2,7 @@
   declare(strict_types = 1); 
 
   require_once(__DIR__ . '/../utils/session.php');
+  require_once(__DIR__ . '/../database/User.class.php');
 ?>
 
 <?php function drawHeader(Session $session, $bodyClass = '') { ?>
@@ -78,14 +79,20 @@ function getRandomColorClass() {
 ?>
 
 <?php function drawUserMenu(Session $session) { 
-  $initial = htmlspecialchars(getInitial($session->getName()));
-  $colorClass = getRandomColorClass();
+    $user = User::getUser(getDatabaseConnection(), $session->getId());
 ?>
 
 <div class="profile-menu-container">
-  <div class="profile-avatar <?= $colorClass ?>" id="profile-avatar">
-    <?= $initial ?>
-  </div>
+    <?php if ($user->hasProfilePicture()): ?>
+        <img src="/uploads/profile/<?= htmlspecialchars($user->getProfilePicture()) ?>" 
+             alt="Profile Picture" 
+             class="profile-avatar"
+             id="profile-avatar">
+    <?php else: ?>
+        <div class="profile-avatar <?= getRandomColorClass() ?>" id="profile-avatar">
+            <?= htmlspecialchars(strtoupper(substr($user->getName() ?? 'U', 0, 1))) ?>
+        </div>
+    <?php endif; ?>
   <div id="dropdown-menu" class="dropdown-menu hidden">
     <form action="../pages/profile.php" method="get">
       <button type="submit"><i class="fa fa-user"></i> Profile</button>

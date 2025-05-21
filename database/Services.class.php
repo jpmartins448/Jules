@@ -277,6 +277,13 @@ class Service {
         $stmt->execute([$serviceId]);
         return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
     }
+
+    public static function getFreelancerProfilePicture(PDO $db, int $userId): ?string {
+    $stmt = $db->prepare('SELECT profile_picture FROM users WHERE id = ?');
+    $stmt->execute([$userId]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['profile_picture'] ?? null;
+}
       
 }
 

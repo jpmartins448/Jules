@@ -14,6 +14,7 @@ if (!$id) die('Service not found.');
 $service = Service::getById($db, (int)$id);
 if (!$service) die('Service not found.');
 
+$profilePicture = Service::getFreelancerProfilePicture($db, $service->getUserId());
 $images = Service::getServiceImages($db, $service->getId());
 $videos = Service::getServiceVideos($db, $service->getId());
 
@@ -30,7 +31,17 @@ drawHeader($session);
 
 <div class="service-detail-container">
   <div class="left-column">
-    <img src="https://picsum.photos/150?freelancer=<?= $service->getUserId() ?>" class="freelancer-pic">
+    <?php if ($profilePicture): ?>
+      <img src="/uploads/profile/<?= htmlspecialchars($profilePicture) ?>" 
+           class="freelancer-pic" 
+           alt="Freelancer Profile Picture"
+           onerror="this.onerror=null;this.src='https://picsum.photos/150?freelancer=<?= $service->getUserId() ?>'">
+    <?php else: ?>
+      <!-- Fallback to initial avatar -->
+      <div class="profile-picture-initial">
+        <?= strtoupper(substr($service->getUsername(), 0, 1)) ?>
+      </div>
+    <?php endif; ?>
     <p class="freelancer-name"><?= htmlspecialchars($service->getUsername()) ?></p>
   </div>
 
