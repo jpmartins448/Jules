@@ -1,0 +1,57 @@
+.admin-page {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .admin-page h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .admin-page form {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  
+  .admin-page input[name="category_name"] {
+    flex-grow: 1;
+    padding: 10px 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .admin-page button[type="submit"] {
+    background-color: #0e7a57;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .admin-page button[type="submit"]:hover {
+    background-color: #0c684a;
+  }
+  
+  .admin-page ul {
+    padding-left: 20px;
+    color: #444;
+  }
+  
+  .admin-page li {
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+  

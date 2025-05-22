@@ -257,24 +257,7 @@ form.register-form {
   .hidden {
     display: none;
   }
-  
-  /* Updated Dropdown Menu Styles */
-.dropdown-menu {
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  background-color: white;
-  border: none;
-  padding: 8px 0;
-  border-radius: 12px;
-  z-index: 999;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  min-width: 220px;
-  opacity: 0;
-  transform: translateY(-10px);
-  visibility: hidden;
-  transition: all 0.2s ease;
-}
+
 
 .dropdown-menu.show {
   opacity: 1;
@@ -737,6 +720,7 @@ header {
 }
 
 .dropdown-menu {
+  display: none;
   top: 100%; /* directly below avatar */
   right: 0;
   position: absolute;
@@ -747,10 +731,6 @@ header {
   border-radius: 8px;
   z-index: 999;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.profile-menu-container:hover .dropdown-menu {
-  display: block;
 }
 
 /* 3. Fix global layout issues */
@@ -1159,4 +1139,8 @@ main {
   .profile-picture-section {
     margin-bottom: 30px;
   }
+}
+
+.dropdown-menu:not(.hidden) {
+  display: block;
 }

@@ -1,14 +1,15 @@
 <?php
 function drawHomepage(array $services, array $categories, $category = '', $sort = '', $rating = '', $search = '') { ?>
-<link rel="stylesheet" href="../css/homepage.css">
-<script src="../javascript/homepage.js" defer></script>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../javascript/script.js" defer></script>
+
 
 <div class="homepage-container">
-  <form method="get" class="search-filter-bar">
+<form method="get" id="filterForm" class="search-filter-bar">
     <input type="text" name="search" placeholder="What are you looking for today?" class="search-input" value="<?= htmlspecialchars($search ?? '') ?>">
     <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
 
-    <select class="filter-dropdown" name="category">
+    <select class="filter-dropdown" name="category" id="categoryFilter">
       <option value="">Category</option>
       <?php foreach ($categories as $cat): ?>
         <option value="<?= $cat['id'] ?>" <?= ($category == $cat['id']) ? 'selected' : '' ?>>
@@ -17,13 +18,13 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
       <?php endforeach; ?>
     </select>
 
-    <select class="filter-dropdown" name="sort">
+    <select class="filter-dropdown" name="sort" id="priceFilter" id="ratingFilter">
       <option value="">Price</option>
       <option value="price_asc" <?= ($sort == 'price_asc') ? 'selected' : '' ?>>Low to High</option>
       <option value="price_desc" <?= ($sort == 'price_desc') ? 'selected' : '' ?>>High to Low</option>
     </select>
 
-    <select class="filter-dropdown" name="rating">
+    <select class="filter-dropdown" name="rating" id="ratingFilter">
       <option value="">Rating</option>
       <option value="5" <?= ($rating == '5') ? 'selected' : '' ?>>★★★★★</option>
       <option value="4" <?= ($rating == '4') ? 'selected' : '' ?>>★★★★☆</option>
