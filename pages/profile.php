@@ -16,7 +16,7 @@
 
   $user = User::getUser($db, $session->getId());
   
-  drawHeader($session, 'profile-page');
+  drawHeader($session, 'profile-page', '../css/profile.css');
   drawProfileForm($user);
   drawFooter();
 ?>
