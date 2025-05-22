@@ -1,0 +1,104 @@
+.profile-menu-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Avatar background color classes */
+.avatar-blue    { background-color: #007BFF; }
+.avatar-red     { background-color: #dc3545; }
+.avatar-yellow  { background-color: #ffc107; color: #000; }
+.avatar-purple  { background-color: #6f42c1; }
+.avatar-orange  { background-color: #fd7e14; }
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 48px; /* ajusta conforme o tamanho do avatar */
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  padding: 10px 0;
+  min-width: 180px;
+  z-index: 3000;
+}
+
+.profile-menu-container:hover .dropdown-menu,
+.profile-menu-container:focus-within .dropdown-menu,
+.dropdown-menu.show,
+.dropdown-menu:not(.hidden) {
+  display: block;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #444;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background-color: #f8f9fa;
+  color: #0e7a57;
+}
+
+.dropdown-menu i {
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+  color: #6c757d;
+  transition: color 0.2s ease;
+}
+
+.dropdown-menu a:hover i,
+.dropdown-menu button:hover i {
+  color: #0e7a57;
+}
+
+.dropdown-menu form {
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-menu button {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* Add a small arrow at the top */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 15px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 5px rgba(0,0,0,0.05);
+}
