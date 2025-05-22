@@ -23,12 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Horizontal Scroll for Services ---
-  const scrollContainer = document.getElementById('scroll-container');
   window.scrollRight = function () {
-    if (scrollContainer) {
-      scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+    const container = document.getElementById('services-container');
+    if (container) {
+      container.scrollBy({ left: 300, behavior: 'smooth' });
     }
   };
+  
 
   // --- Video Upload Limit ---
   const videoInput = document.getElementById('video');
@@ -77,28 +78,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Auto-submit Filters ---
-  const form = document.getElementById('filterForm');
-  const searchInput = document.querySelector('input[name="search"]');
+// Auto-submit via AJAX
+const form = document.getElementById('filterForm');
+const container = document.getElementById('services-container');
 
-  if (form) {
-    let debounceTimer;
+function getFilterParams() {
+  const params = new URLSearchParams(new FormData(form));
+  return params.toString();
+}
 
-    if (searchInput) {
-      searchInput.addEventListener('input', () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          form.submit();
-        }, 600);
-      });
-    }
+function fetchFilteredServices() {
+  const query = getFilterParams();
+  fetch(`/pages/filter_services.php?${query}`)
+    .then(res => res.text())
+    .then(html => {
+      container.innerHTML = html;
+    });
+}
 
-    ['categoryFilter', 'priceFilter', 'ratingFilter'].forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener('change', () => {
-          form.submit();
-        });
-      }
+if (form) {
+  const searchInput = form.querySelector('input[name="search"]');
+
+  let debounceTimer;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(fetchFilteredServices, 600);
     });
   }
+
+  ['categoryFilter', 'priceFilter', 'ratingFilter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', fetchFilteredServices);
+    }
+  });
+}
 });

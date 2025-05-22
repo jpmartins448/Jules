@@ -30,6 +30,8 @@ drawHeader($session);
 </div>
 
 <div class="service-detail-container">
+<script src="/javascript/script.js" defer></script>
+
   <div class="left-column">
     <?php if ($profilePicture): ?>
       <img src="/uploads/profile/<?= htmlspecialchars($profilePicture) ?>" 

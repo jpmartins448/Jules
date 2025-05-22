@@ -1,0 +1,99 @@
+/* Profile menu container */
+.profile-menu-container {
+    position: relative;
+    display: inline-block;
+    margin-right: 30px;
+    overflow: hidden;
+  }
+  
+  /* Profile avatar */
+  .profile-avatar {
+    pointer-events: auto;
+    display: inline-block; /* ✅ for <img> click to work */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  
+  /* Avatar background color classes */
+  .avatar-blue    { background-color: #007BFF; }
+  .avatar-red     { background-color: #dc3545; }
+  .avatar-yellow  { background-color: #ffc107; color: #000; }
+  .avatar-purple  { background-color: #6f42c1; }
+  .avatar-orange  { background-color: #fd7e14; }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    padding: 10px 0;
+    min-width: 180px;
+    z-index: 3000;
+    display: none; /* ✅ Start hidden */
+  }
+  
+  
+  /* Sombra, seta e arredondamento */
+  
+  /* Links e botões do menu */
+  .dropdown-menu a,
+  .dropdown-menu button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #444;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  
+  .dropdown-menu a:hover,
+  .dropdown-menu button:hover {
+    background-color: #f8f9fa;
+    color: #0e7a57;
+  }
+  
+  /* Ícones do menu */
+  .dropdown-menu i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    color: #6c757d;
+    transition: color 0.2s ease;
+  }
+  
+  .dropdown-menu a:hover i,
+  .dropdown-menu button:hover i {
+    color: #0e7a57;
+  }
+    
+  /* Formulário dentro do menu */
+  .dropdown-menu form {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dropdown-menu button {
+    font-family: inherit;
+    font-size: 14px;
+  }

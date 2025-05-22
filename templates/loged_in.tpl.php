@@ -18,7 +18,7 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
       <?php endforeach; ?>
     </select>
 
-    <select class="filter-dropdown" name="sort" id="priceFilter" id="ratingFilter">
+    <select class="filter-dropdown" name="sort" id="priceFilter" id="priceFilter">
       <option value="">Price</option>
       <option value="price_asc" <?= ($sort == 'price_asc') ? 'selected' : '' ?>>Low to High</option>
       <option value="price_desc" <?= ($sort == 'price_desc') ? 'selected' : '' ?>>High to Low</option>
@@ -33,12 +33,13 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
   </form>
 
   <div class="service-scroll-wrapper">
-    <div class="service-scroll" id="scroll-container">
-      <?php if (empty($services)): ?>
-        <div style="text-align:center; margin: 60px 0; font-size: 1.3em; color: #888;">
-          Can't find something along your preferences
-        </div>
-      <?php else: ?>
+  <div class="service-scroll" id="scroll-container">
+    <?php if (empty($services)): ?>
+      <div style="text-align:center; margin: 60px 0; font-size: 1.3em; color: #888;">
+        Can't find something along your preferences
+      </div>
+    <?php else: ?>
+      <div id="services-container"> <!-- ✅ FIXED: Only one container -->
         <?php foreach ($services as $s): ?>
           <a href="../pages/service.php?id=<?= $s->getId() ?>" target="_blank" style="text-decoration:none; color:inherit;">
             <div class="service-card">
@@ -47,20 +48,19 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
                 <p><strong><?= htmlspecialchars($s->getUsername()) ?></strong></p>
                 <p><?= htmlspecialchars($s->getTitle()) ?></p>
                 <p>
-                  <?php
-                    $stars = str_repeat('<span class="star">★</span>', $s->getRating()) .
-                             str_repeat('<span class="star-empty">☆</span>', 5 - $s->getRating());
-                    echo $stars;
-                  ?>
+                  <?= str_repeat('<span class="star">★</span>', $s->getRating()) .
+                      str_repeat('<span class="star-empty">☆</span>', 5 - $s->getRating()) ?>
                 </p>
                 <p>$<?= number_format($s->getPrice(), 2) ?></p>
               </div>
             </div>
           </a>
         <?php endforeach; ?>
-      <?php endif; ?>
-    </div>
-    <div class="scroll-arrow" onclick="scrollRight()">→</div>
+      </div> <!-- close services-container -->
+    <?php endif; ?>
   </div>
+  <div class="scroll-arrow" onclick="scrollRight()">→</div>
+</div>
+
 </div>
 <?php } ?>

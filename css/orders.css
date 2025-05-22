@@ -1,0 +1,104 @@
+/* Orders list container */
+.orders-list {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+  
+  /* Individual order card */
+  .order-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 18px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  
+  .order-card .order-info {
+    flex: 1;
+  }
+  
+  .order-card .order-actions {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .order-card .order-status {
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.95em;
+  }
+  
+  .order-card .order-status.completed {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .order-card .order-status.pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+  
+  .order-card button,
+  .order-card .complete-btn {
+    background: #0e7a57;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .order-card button:hover,
+  .order-card .complete-btn:hover {
+    background: #095c40;
+  }
+  
+  /* Table for orders (if used) */
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+  }
+  
+  .orders-table th {
+    background: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  .orders-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .orders-list {
+      padding: 10px;
+    }
+    .order-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 10px;
+    }
+    .orders-table th,
+    .orders-table td {
+      padding: 8px 6px;
+    }
+  }

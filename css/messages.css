@@ -1,0 +1,66 @@
+/* Messages and chat */
+.messages-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  .chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .chat-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .chat-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  
+  .chat-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #0e7a57;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+  }
+  
+  .chat-info {
+    flex: 1;
+  }
+  
+  .chat-username {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+  }
+  
+  .chat-preview {
+    font-size: 0.9em;
+    color: #777;
+  }
+  
+  .unread-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: red;
+    margin-left: auto;
+    margin-right: 10px;
+  }

@@ -24,6 +24,7 @@ drawHeader($session, '', '../css/admin_all_users.css');
 
 <div class="admin-panel">
   <h2>All Users</h2>
+  <script src="/javascript/script.js" defer></script>
 
   <table class="admin-table">
     <thead>

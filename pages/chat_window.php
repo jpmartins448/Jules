@@ -74,6 +74,8 @@ drawHeader($session);
 <div style="max-width: 800px; margin: 20px auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
   <div style="padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
     <h2 style="margin: 0;">Chat with <?= htmlspecialchars($otherUser) ?></h2>
+    <script src="/javascript/script.js" defer></script>
+
     <a href="../pages/messages.php" style="color: #666; text-decoration: none;">← Back to messages</a>
   </div>
   

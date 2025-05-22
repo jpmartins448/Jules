@@ -44,6 +44,7 @@ drawHeader($session);
 
 <div class="messages-container">
   <h1>Your Messages</h1>
+  <script src="/javascript/script.js" defer></script>
 
   <?php if (empty($chats)): ?>
     <p>No messages yet.</p>

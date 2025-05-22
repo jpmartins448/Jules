@@ -536,43 +536,30 @@ body {
   }
   
   .service-scroll-wrapper {
+    overflow: hidden;
     position: relative;
-    overflow-x: auto;
-    white-space: nowrap;
-    margin-top: 50px; /* aumenta para 50px ou mais conforme necessário */
   }
   
   .service-scroll {
-    display: flex;
-    gap: 20px;
-    padding-bottom: 10px;
     overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #007bff #e0e0e0;
-    padding-left: 20px;   /* Adiciona espaço à esquerda */
-    padding-right: 20px;  /* Opcional: espaço à direita também */
+    overflow-y: hidden;
+    white-space: nowrap;
   }
   
-  .service-card {
-    width: 200px;
-    background: white;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: left;
-    box-shadow: 0 0 4px rgba(0,0,0,0.1);
-    flex-shrink: 0;
-    transition: box-shadow 0.3s, transform 0.3s;
-    border: 2px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(90deg, #0e7a57, #007bff) border-box;
-    transform-origin: top center;
-  }
   
-  .service-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    transform: scale(1.03); /* remove o translateY */
-    border-color: #007bff;
-  }
+.service-card {
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: white;
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
     
   .service-thumb {
     width: 100%;
@@ -1144,3 +1131,14 @@ main {
 .dropdown-menu:not(.hidden) {
   display: block;
 }
+
+#services-container {
+  display: flex;
+  flex-wrap: nowrap; /* No wrapping — side scroll */
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  padding: 10px 20px;
+  scroll-behavior: smooth;
+}
+

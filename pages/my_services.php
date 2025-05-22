@@ -18,6 +18,8 @@ drawHeader($session);
 ?>
 
 <h2 style="text-align:center;">My Services</h2>
+<script src="/javascript/script.js" defer></script>
+
 <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
   <?php foreach ($services as $service): ?>
     <div style="width:300px; border:1px solid #ccc; border-radius:10px; padding:15px;">

@@ -46,7 +46,8 @@ drawHeader($session);
 
 <div class="homepage-container" style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
   <h1 style="margin-bottom: 30px; color: #333;">My Orders</h1>
-  
+  <script src="/javascript/script.js" defer></script>
+
   <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
     <h3 style="margin: 0; color: #555;">Order Summary</h3>
     <div style="font-size: 1.2em; font-weight: bold;">

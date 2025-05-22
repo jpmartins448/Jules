@@ -1,0 +1,132 @@
+/* Reset e base */
+* {
+    box-sizing: border-box;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    min-height: 100vh;
+  }
+  
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  main, .homepage-container {
+    flex: 1 0 auto;
+  }
+  
+  main {
+    padding: 40px;
+  }
+  
+  footer {
+    background: #222;
+    color: #ccc;
+    padding: 20px;
+    text-align: center;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  
+  header {
+    background: linear-gradient(90deg, #0e7a57 60%, #007bff 100%);
+    color: white;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 0;
+    position: relative;
+    z-index: 10;
+  }
+  
+  header h1, header h2 {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 2.2rem;
+  }
+  
+  header h1 a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .username {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  /* Global Messages */
+  article.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin: 10px;
+    border-left: 5px solid #28a745;
+  }
+  
+  article.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin: 10px;
+    border-left: 5px solid #dc3545;
+  }
+  
+  /* Utils */
+  .hidden {
+    display: none !important;
+  }
+  
+  .floating-add-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #007BFF;
+    color: white;
+    padding: 20px 28px;
+    font-size: 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+  
+  .floating-add-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+  }
+  
+  /* Stars */
+  .star { color: #FFD700; }
+  .star-empty { color: #ccc; }
+  
+  /* Basic response */
+  @media (max-width: 768px) {
+    main {
+      padding: 10px;
+    }
+    .homepage-container {
+      padding: 10px;
+    }
+  }
