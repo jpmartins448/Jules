@@ -1,0 +1,143 @@
+/* Authentication form */
+.auth-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  max-width: 100%;
+}
+
+.auth-form input,
+.auth-form button {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.auth-form button {
+  background-color: #ffffff;
+  color: #0e7a57;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.auth-form button:hover {
+  background: #0e7a57;
+  color: white;
+}
+
+/* Registration form */
+form.register-form {
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+form.register-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form.register-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+form.register-form input[type="text"],
+form.register-form input[type="email"],
+form.register-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form.register-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0e7a57;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form.register-form button:hover {
+  background-color: #095c40;
+}
+
+/* Error messages in registration */
+ul.error-messages {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #ffe6e6;
+  color: #cc0000;
+  border-left: 5px solid #cc0000;
+  border-radius: 5px;
+  list-style: square inside;
+}
+
+/* Registration heading */
+.register-heading {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.register-heading h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.register-heading p {
+  font-size: 16px;
+}
+
+.register-heading .login-link {
+  color: #0e7a57;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.register-heading .login-link:hover {
+  text-decoration: underline;
+}
+
+/* Generic submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #0e7a57;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #095c40;
+}
+
+/* Filter dropdown in forms */
+.filter-dropdown {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}

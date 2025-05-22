@@ -18,6 +18,7 @@
     <!-- Global styles -->
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="../css/forms.css">
     
     <!-- Optional extra styles -->
     <?php if (!empty($extraCss)): ?>
