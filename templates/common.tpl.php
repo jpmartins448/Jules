@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/forms.css">
     <link rel="stylesheet" href="../css/homepage.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     
     
     <!-- Optional extra styles -->
