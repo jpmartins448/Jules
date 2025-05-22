@@ -4,6 +4,8 @@
   <div class="profile-container">
     <div class="profile-header">
       <h1>My Profile</h1>
+      <script src="/javascript/script.js" defer></script>
+
     </div>
     
     <div class="profile-content">

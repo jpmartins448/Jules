@@ -7,6 +7,7 @@
 <?php function drawFreelancers(array $artists, array $categories = [], $selectedCategory = '', $selectedSort = '', $selectedRating = '', $search = '') { ?>
   <header>
     <h2>Freelancers</h2>
+    <script src="/javascript/script.js" defer></script>
     <form method="get">
       <input id="searchartist" type="text" name="search" placeholder="search" value="<?=htmlspecialchars($search)?>">
       <select name="category">

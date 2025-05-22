@@ -58,7 +58,7 @@ drawHeader($session);
   <?php if (empty($orders)): ?>
     <div style="text-align: center; padding: 40px 20px; background: #f8f9fa; border-radius: 8px;">
       <p style="font-size: 1.1em; color: #666;">You have no orders yet.</p>
-      <a href="../pages/services.php" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #0e7a57; color: white; text-decoration: none; border-radius: 6px;">Browse Services</a>
+      <a href="../pages/loged_in.php" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #0e7a57; color: white; text-decoration: none; border-radius: 6px;">Browse Services</a>
     </div>
   <?php else: ?>
     <div style="display: grid; gap: 15px;">

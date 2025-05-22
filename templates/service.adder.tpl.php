@@ -1,6 +1,8 @@
 <?php function drawServiceForm(array $categories) { ?>
   <div class="service-form-container">
     <h2>Create New Service</h2>
+    <script src="/javascript/script.js" defer></script>
+
     <form id="serviceForm" action="../actions/action_create_service.php" method="post" enctype="multipart/form-data">
       
       <!-- Title -->
