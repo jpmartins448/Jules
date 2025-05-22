@@ -42,7 +42,7 @@ if (!$service || $service->getUserId() !== $session->getId()) {
 // Get all orders for this service
 $orders = Order::getOrdersByService($db, (int)$service_id);
 
-drawHeader($session);
+drawHeader($session, 'manage-orders-page', '../css/services.css');
 ?>
 
 <div class="homepage-container" style="max-width: 800px; margin: 40px auto;">

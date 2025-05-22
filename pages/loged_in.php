@@ -32,7 +32,7 @@ $categories = Category::getAllCategories($db);
 // Buscar serviços filtrados (você precisa implementar este método na classe Service)
 $services = Service::search($db, $search, $category, $sort, $rating);
 
-drawHeader($session);
+drawHeader($session, 'homepage', '../css/orders.css');
 drawHomepage($services, $categories, $category, $sort, $rating, $search);
 drawFooter();
 ?>

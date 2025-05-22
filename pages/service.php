@@ -18,7 +18,7 @@ $profilePicture = Service::getFreelancerProfilePicture($db, $service->getUserId(
 $images = Service::getServiceImages($db, $service->getId());
 $videos = Service::getServiceVideos($db, $service->getId());
 
-drawHeader($session);
+drawHeader($session, "service-page", '../css/service.css');
 ?>
 
 <!-- Lightbox -->

@@ -29,7 +29,6 @@
     <?php endif; ?>
 
     <!-- Icons and scripts -->
-    <link rel="stylesheet" href="../css/style.css">
     <script src="../javascript/script.js" defer></script>
   </head>
   <body<?= $bodyClass ? ' class="' . htmlspecialchars($bodyClass) . '"' : '' ?>>

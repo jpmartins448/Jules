@@ -14,7 +14,7 @@ $db = getDatabaseConnection();
 $userId = $session->getId();
 $services = Service::getByUser($db, $userId);
 
-drawHeader($session);
+drawHeader($session, 'my-services-page', '../css/services.css');
 ?>
 
 <h2 style="text-align:center;">My Services</h2>
