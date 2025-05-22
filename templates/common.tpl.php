@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/forms.css">
     <link rel="stylesheet" href="../css/homepage.css">
     
+    
     <!-- Optional extra styles -->
     <?php if (!empty($extraCss)): ?>
       <link rel="stylesheet" href="<?= htmlspecialchars($extraCss) ?>">
@@ -28,7 +29,7 @@
 
     <!-- Icons and scripts -->
     <link rel="stylesheet" href="../css/style.css">
-        <script src="../javascript/script.js" defer></script>
+    <script src="../javascript/script.js" defer></script>
   </head>
   <body<?= $bodyClass ? ' class="' . htmlspecialchars($bodyClass) . '"' : '' ?>>
     <div class="page-container">
@@ -43,7 +44,6 @@
            }
         ?>
       </header>
-
       <section id="messages">
         <?php foreach ($session->getMessages() as $message) { ?>
           <article class="<?= htmlspecialchars($message['type']) ?>">
@@ -51,7 +51,6 @@
           </article>
         <?php } ?>
       </section>
-
       <main>
 <?php } ?>
 
