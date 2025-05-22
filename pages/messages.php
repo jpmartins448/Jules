@@ -39,7 +39,7 @@ $stmt->execute([$userId, $userId, $userId, $userId]);
 $chats = $stmt->fetchAll();
 
 
-drawHeader($session);
+drawHeader($session, '', '../css/messages.css');
 ?>
 
 <div class="messages-container">

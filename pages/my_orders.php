@@ -41,7 +41,7 @@ foreach ($orders as $order) {
     $total += $order['price'];
 }
 
-drawHeader($session);
+drawHeader($session, '', '../css/orders.css');
 ?>
 
 <div class="homepage-container" style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
