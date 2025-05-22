@@ -3,6 +3,7 @@
   position: relative;
   display: inline-block;
   margin-right: 30px;
+  overflow: hidden;
 }
 
 /* Profile avatar */
@@ -26,11 +27,14 @@
 .avatar-purple  { background-color: #6f42c1; }
 .avatar-orange  { background-color: #fd7e14; }
 
-/* Dropdown menu */
+.hidden {
+  display: none !important;
+}
+
 .dropdown-menu {
-  display: none;
+  display: none !important;
   position: absolute;
-  top: 48px; /* adjust according to avatar size */
+  top: 48px;
   right: 0;
   background: #fff;
   border: 1px solid #ccc;
@@ -41,14 +45,25 @@
   z-index: 3000;
 }
 
-.profile-menu-container:hover .dropdown-menu,
-.profile-menu-container:focus-within .dropdown-menu,
-.dropdown-menu.show,
+/* Mostra o menu quando não tem .hidden */
 .dropdown-menu:not(.hidden) {
-  display: block;
+  display: block !important;
 }
 
-/* Dropdown menu links and buttons */
+/* Sombra, seta e arredondamento */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 15px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 5px rgba(0,0,0,0.05);
+}
+
+/* Links e botões do menu */
 .dropdown-menu a,
 .dropdown-menu button {
   display: flex;
@@ -71,7 +86,7 @@
   color: #0e7a57;
 }
 
-/* Dropdown menu icons */
+/* Ícones do menu */
 .dropdown-menu i {
   margin-right: 12px;
   width: 20px;
@@ -85,7 +100,7 @@
   color: #0e7a57;
 }
 
-/* Dropdown menu form */
+/* Formulário dentro do menu */
 .dropdown-menu form {
   margin: 0;
   padding: 0;
@@ -94,17 +109,4 @@
 .dropdown-menu button {
   font-family: inherit;
   font-size: 14px;
-}
-
-/* Add a small arrow at the top */
-.dropdown-menu::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  right: 15px;
-  width: 12px;
-  height: 12px;
-  background: white;
-  transform: rotate(45deg);
-  box-shadow: -2px -2px 5px rgba(0,0,0,0.05);
 }

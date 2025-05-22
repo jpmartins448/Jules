@@ -1,6 +1,5 @@
 <?php
 function drawHomepage(array $services, array $categories, $category = '', $sort = '', $rating = '', $search = '') { ?>
-<link rel="stylesheet" href="../css/style.css">
 <script src="../javascript/script.js" defer></script>
 
 

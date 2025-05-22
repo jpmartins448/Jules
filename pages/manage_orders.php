@@ -46,7 +46,7 @@ drawHeader($session, 'manage-orders-page', '../css/services.css');
 ?>
 
 <div class="homepage-container" style="max-width: 800px; margin: 40px auto;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div class="orders-list">
         <h1>Manage Orders for: <?= htmlspecialchars($service->getTitle()) ?></h1>
         <form action="../actions/action_delete_service.php" method="post" onsubmit="return confirm('Are you sure you want to delete this service? This will also delete all its orders.');">
             <input type="hidden" name="service_id" value="<?= $service->getId() ?>">
@@ -59,7 +59,7 @@ drawHeader($session, 'manage-orders-page', '../css/services.css');
     <?php if (empty($orders)): ?>
         <p>No orders for this service yet.</p>
     <?php else: ?>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <table class="orders-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <thead>
                 <tr style="background-color: #f2f2f2;">
                     <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Client</th>
