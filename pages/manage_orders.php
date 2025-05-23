@@ -48,6 +48,8 @@ drawHeader($session, 'manage-orders-page', '../css/services.css');
 <div class="homepage-container" style="max-width: 800px; margin: 40px auto;">
     <div class="orders-list">
         <h1>Manage Orders for: <?= htmlspecialchars($service->getTitle()) ?></h1>
+        <script src="/javascript/script.js" defer></script>
+
         <form action="../actions/action_delete_service.php" method="post" onsubmit="return confirm('Are you sure you want to delete this service? This will also delete all its orders.');">
             <input type="hidden" name="service_id" value="<?= $service->getId() ?>">
             <button type="submit" style="padding: 8px 16px; background: #d33; color: white; border: none; border-radius: 4px;">

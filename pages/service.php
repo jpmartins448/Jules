@@ -23,9 +23,11 @@ drawHeader($session, "service-page", '../css/services.css');
 
 <!-- Lightbox -->
 <div id="lightbox" class="lightbox">
-  <span class="close-btn">&times;</span>
   <div class="lightbox-inner">
-    <img id="lightbox-img" src="" alt="Full Image">
+    <div class="lightbox-content">
+      <span class="close-btn">&#x2715;</span>
+      <img id="lightbox-img" src="" alt="Full Image">
+    </div>
   </div>
 </div>
 
@@ -51,6 +53,8 @@ drawHeader($session, "service-page", '../css/services.css');
 
     <?php if (!empty($images)): ?>
   <h3>Images</h3>
+  <script src="/javascript/script.js" defer></script>
+
   <div class="horizontal-scroll image-gallery">
   <?php foreach ($images as $index => $img): ?>
   <img 

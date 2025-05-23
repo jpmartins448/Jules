@@ -22,6 +22,8 @@ drawHeader($session, 'my-services-page', '../css/services.css');
   <?php foreach ($services as $service): ?>
     <div class="service-card">
       <h3><?= htmlspecialchars($service->getTitle()) ?></h3>
+      <script src="/javascript/script.js" defer></script>
+
       <p><?= htmlspecialchars($service->getDescription()) ?></p>
       <p><strong>Price:</strong> $<?= $service->getPrice() ?></p>
       <form action="manage_orders.php" method="get">

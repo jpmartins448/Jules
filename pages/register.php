@@ -57,6 +57,8 @@ drawHeader($session);
 
 <div class="register-heading">
   <h2>Create your Freelancerz account</h2>
+  <script src="/javascript/script.js" defer></script>
+
   <p>Already have an account? <a href="index.php" class="login-link">Login</a></p>
 </div>
 <?php if (!empty($errors)): ?>

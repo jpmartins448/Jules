@@ -41,6 +41,7 @@ drawHeader($session, '', '../css/admin_all_categories.css');
 
 <div class="admin-page" style="max-width: 600px; margin: 40px auto;">
     <h2>All Categories</h2>
+    <script src="/javascript/script.js" defer></script>
 
     <form method="POST" style="margin-bottom: 20px;">
         <input type="text" name="category_name" placeholder="New category name" required style="padding: 8px;">

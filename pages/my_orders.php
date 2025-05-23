@@ -48,6 +48,8 @@ drawHeader($session, '', '../css/orders.css');
   <h1>My Orders</h1>
   <div class="order-summary">
     <h3>Order Summary</h3>
+    <script src="/javascript/script.js" defer></script>
+
     <div>Total Spent: <span>$<?= number_format($total, 2) ?></span></div>
   </div>
   <?php if (empty($orders)): ?>

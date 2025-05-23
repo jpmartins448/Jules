@@ -41,6 +41,7 @@ drawHeader($session, '', '../css/admin_all_services.css');
 
 <div class="homepage-container" style="max-width: 900px; margin: 40px auto;">
     <h1>All Services</h1>
+    <script src="/javascript/script.js" defer></script>
 
     <?php if (empty($services)): ?>
         <p>No services available.</p>
