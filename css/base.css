@@ -45,7 +45,7 @@ header {
   color: white;
   padding: 20px 24px;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow: visible;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   display: flex;
   justify-content: space-between;

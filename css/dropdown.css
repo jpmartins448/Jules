@@ -3,10 +3,8 @@
   position: relative;
   display: inline-block;
   margin-right: 30px;
-  overflow: hidden;
 }
 
-/* Profile avatar */
 .profile-avatar {
   width: 40px;
   height: 40px;
@@ -28,29 +26,31 @@
 .avatar-orange  { background-color: #fd7e14; }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .dropdown-menu {
-  display: none !important;
+  display: none;
   position: absolute;
-  top: 48px;
+  top: 48px; /* ou top: 100%; se preferires */
   right: 0;
-  background: #fff;
+  background-color: white;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
   padding: 10px 0;
+  border-radius: 8px;
+  z-index: 9999; /* aumenta para garantir que fica por cima de tudo */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
   min-width: 180px;
-  z-index: 3000;
+  max-height: none;      /* <-- garante que não há limite de altura */
+  overflow: visible;     /* <-- impede scroll */
 }
 
 /* Mostra o menu quando não tem .hidden */
 .dropdown-menu:not(.hidden) {
-  display: block !important;
+  display: block;
 }
 
-/* Sombra, seta e arredondamento */
+/* Add a small arrow at the top */
 .dropdown-menu::before {
   content: '';
   position: absolute;
@@ -63,7 +63,6 @@
   box-shadow: -2px -2px 5px rgba(0,0,0,0.05);
 }
 
-/* Links e botões do menu */
 .dropdown-menu a,
 .dropdown-menu button {
   display: flex;
@@ -86,7 +85,6 @@
   color: #0e7a57;
 }
 
-/* Ícones do menu */
 .dropdown-menu i {
   margin-right: 12px;
   width: 20px;
@@ -100,7 +98,6 @@
   color: #0e7a57;
 }
 
-/* Formulário dentro do menu */
 .dropdown-menu form {
   margin: 0;
   padding: 0;
