@@ -56,6 +56,11 @@ drawHeader($session, 'manage-orders-page', '../css/services.css');
                 Delete Service
             </button>
         </form>
+        <div class="service-reviews" id="reviews">
+            <a href="../pages/service.php?id=<?= $service->getId() ?>#reviews" class="see-reviews-btn">★ See Reviews</a>
+        </div>
+</a>
+
     </div>
     
     <?php if (empty($orders)): ?>

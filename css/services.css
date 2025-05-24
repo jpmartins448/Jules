@@ -234,4 +234,133 @@
   background: #333;
 }
 
+/* === Reviews Section === */
+.service-reviews {
+  margin-top: 60px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.service-reviews h2 {
+  font-size: 1.8rem;
+  color: #0e7a57;
+  margin-bottom: 20px;
+}
+
+.review {
+  border-top: 1px solid #eee;
+  padding: 16px 0;
+}
+
+.review:first-of-type {
+  border-top: none;
+}
+
+.review strong {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.review span {
+  color: #FFD700;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.review p {
+  margin: 8px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.review small {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+
+/* === Add Review Form === */
+.add-review {
+  margin-top: 40px;
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.add-review h3 {
+  color: #0e7a57;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.add-review label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+.add-review select,
+.add-review textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.add-review textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.add-review select:focus,
+.add-review textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.add-review button {
+  padding: 10px 20px;
+  background: linear-gradient(to right, #0e7a57, #007bff);
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-review button:hover {
+  opacity: 0.9;
+}
+
+.see-reviews-btn {
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 8px 16px;
+  background: #ffc107;
+  color: #111;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.see-reviews-btn:hover {
+  background: #e0a800;
+  color: white;
+}
+
+
+
 

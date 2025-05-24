@@ -58,7 +58,11 @@ drawHeader($session, '', '../css/orders.css');
       <a href="../pages/services.php" class="browse-services-btn">Browse Services</a>
     </div>
   <?php else: ?>
-    <?php foreach ($orders as $order): ?>
+    <?php foreach ($orders as $order): 
+    $alreadyReviewedStmt = $db->prepare('SELECT COUNT(*) FROM ratings WHERE service_id = ? AND client_id = ?');
+    $alreadyReviewedStmt->execute([$order['service_id'], $userId]);
+    $alreadyReviewed = $alreadyReviewedStmt->fetchColumn() > 0;
+    ?>
       <div class="order-card">
         <div class="order-info">
           <h3><?= htmlspecialchars($order['title']) ?></h3>
@@ -78,7 +82,15 @@ drawHeader($session, '', '../css/orders.css');
           <a href="../pages/chat_window.php?chat_id=<?= getOrCreateChatId($db, $userId, $order['freelancer_id']) ?>" class="contact-btn">
             <i class="fas fa-envelope"></i> Contact
           </a>
+        <?php if ($order['status'] === 'completed' && !$alreadyReviewed): ?>
+        <div class="add-review" id="add-review">
+          <a href="../pages/service.php?id=<?= $order['service_id'] ?>#add-review" class="review-btn">
+            <i class="fas fa-star"></i> Leave Review
+          </a>
         </div>
+  <?php endif; ?>
+</div>
+
       </div>
     <?php endforeach; ?>
   <?php endif; ?>
