@@ -13,7 +13,7 @@ class Service {
 
     protected string $username = 'unknown';
     protected string $thumbnailPath = 'uploads/images/default.png';
-    protected int $rating = 4;
+    protected float $rating = 4.0;
 
     public function __construct(
         int $id,
@@ -283,6 +283,18 @@ class Service {
     $stmt->execute([$userId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result['profile_picture'] ?? null;
+}
+
+public static function getServiceReviews(PDO $db, int $serviceId): array {
+    $stmt = $db->prepare('
+        SELECT ratings.*, users.username
+        FROM ratings
+        JOIN users ON ratings.client_id = users.id
+        WHERE ratings.service_id = ?
+        ORDER BY ratings.created_at DESC
+    ');
+    $stmt->execute([$serviceId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
       
 }

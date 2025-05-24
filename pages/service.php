@@ -93,6 +93,62 @@ drawHeader($session, "service-page", '../css/services.css');
   </div>
 </div>
 
+<?php
+// Buscar reviews
+$reviews = Service::getServiceReviews($db, $service->getId());
+?>
 
+<div class="service-reviews">
+  <h2>Reviews</h2>
+  <?php if (!empty($reviews)): ?>
+    <?php foreach ($reviews as $review): ?>
+      <div class="review">
+        <strong><?= htmlspecialchars($review['username']) ?></strong>
+        <span><?= str_repeat('★', (int)$review['rating']) ?></span>
+        <p><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
+        <small><?= htmlspecialchars($review['created_at']) ?></small>
+      </div>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <p>No reviews yet.</p>
+  <?php endif; ?>
+</div>
+
+<?php
+// Mostrar formulário se o utilizador for cliente com encomenda concluída e ainda não comentou
+$canReview = false;
+$alreadyReviewed = false;
+if ($session->isLoggedIn() && $session->getId() !== $service->getUserId()) {
+    $stmt = $db->prepare('SELECT COUNT(*) FROM orders WHERE service_id = ? AND client_id = ? AND status = "completed"');
+    $stmt->execute([$service->getId(), $session->getId()]);
+    $canReview = $stmt->fetchColumn() > 0;
+
+    $stmt = $db->prepare('SELECT COUNT(*) FROM ratings WHERE service_id = ? AND client_id = ?');
+    $stmt->execute([$service->getId(), $session->getId()]);
+    $alreadyReviewed = $stmt->fetchColumn() > 0;
+}
+?>
+
+<?php if ($canReview && !$alreadyReviewed): ?>
+  <div class="add-review">
+    <h3>Add your review</h3>
+    <form action="../actions/action_add_review.php" method="post">
+      <input type="hidden" name="service_id" value="<?= $service->getId() ?>">
+      <label for="rating">Rating:</label>
+      <select name="rating" id="rating" required>
+        <option value="5">5 ★</option>
+        <option value="4">4 ★</option>
+        <option value="3">3 ★</option>
+        <option value="2">2 ★</option>
+        <option value="1">1 ★</option>
+      </select>
+      <label for="comment">Comment:</label>
+      <textarea name="comment" id="comment" required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+<?php elseif ($alreadyReviewed): ?>
+  <p><em>You have already reviewed this service.</em></p>
+<?php endif; ?>
 
 <?php drawFooter(); ?>
