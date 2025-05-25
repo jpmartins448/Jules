@@ -14,6 +14,8 @@ class Service {
     protected string $username = 'unknown';
     protected string $thumbnailPath = 'uploads/images/default.png';
     protected float $rating = 4.0;
+    public ?float $averageRating = null;
+    public int $numberOfRatings = 0;
 
     public function __construct(
         int $id,
@@ -38,6 +40,8 @@ class Service {
     // Getters
     public function getId(): int { return $this->id; }
     public function getUserId(): int { return $this->userId; }
+    public function getAverageRating(): ?float { return $this->averageRating; }
+    public function getNumberOfRatings(): int { return $this->numberOfRatings; }
     public function getCategoryId(): ?int { return $this->categoryId; }
     public function getTitle(): string { return $this->title; }
     public function getDescription(): string { return $this->description; }
@@ -71,10 +75,14 @@ class Service {
     // Get service by ID
     public static function getById(PDO $db, int $id): ?Service {
         $stmt = $db->prepare('
-            SELECT services.*, users.name AS username
+            SELECT services.*, users.name AS username,
+                   AVG(ratings.rating) as avg_rating,
+                   COUNT(ratings.rating) as num_ratings
             FROM services
             JOIN users ON services.user_id = users.id
+            LEFT JOIN ratings ON services.id = ratings.service_id
             WHERE services.id = ?
+            GROUP BY services.id
         ');
         $stmt->execute([$id]);
         $row = $stmt->fetch();
@@ -91,6 +99,8 @@ class Service {
             $row['created_at']
         );
         $service->username = $row['username'];
+        $service->averageRating = $row['avg_rating'] !== null ? round((float)$row['avg_rating'], 1) : null;
+        $service->numberOfRatings = (int)$row['num_ratings'];
         return $service;
     }
 
@@ -114,10 +124,14 @@ class Service {
 
     public static function getAll(PDO $db): array {
         $stmt = $db->query('
-            SELECT services.*, users.username, si.image_path AS primary_image
+            SELECT services.*, users.username, si.image_path AS primary_image,
+                   AVG(ratings.rating) as avg_rating,
+                   COUNT(ratings.rating) as num_ratings
             FROM services
             JOIN users ON services.user_id = users.id
             LEFT JOIN service_images si ON services.id = si.service_id AND si.is_primary = 1
+            LEFT JOIN ratings ON services.id = ratings.service_id
+            GROUP BY services.id
             ORDER BY services.created_at DESC
         ');
     
@@ -137,7 +151,9 @@ class Service {
     
             $service->username = $row['username'];
             $service->thumbnailPath = $row['primary_image'] ?? 'uploads/images/default.png';
-            $service->rating = rand(3, 5); // placeholder
+            // $service->rating = rand(3, 5); // placeholder - will be removed or updated
+            $service->averageRating = $row['avg_rating'] !== null ? round((float)$row['avg_rating'], 1) : null;
+            $service->numberOfRatings = (int)$row['num_ratings'];
     
             $services[] = $service;
         }
@@ -147,8 +163,9 @@ class Service {
     
     public static function search(PDO $db, string $search = '', string $category = '', string $sort = '', string $rating = ''): array {
         $query = '
-            SELECT services.*, users.username, si.image_path AS primary_image, 
-                   AVG(ratings.rating) as avg_rating
+            SELECT services.*, users.username, si.image_path AS primary_image,
+                   AVG(ratings.rating) as avg_rating,
+                   COUNT(ratings.rating) as num_ratings
             FROM services
             JOIN users ON services.user_id = users.id
             LEFT JOIN service_images si ON services.id = si.service_id AND si.is_primary = 1
@@ -170,7 +187,8 @@ class Service {
         $query .= ' GROUP BY services.id ';
 
         if ($rating !== '') {
-            $query .= ' HAVING ROUND(avg_rating) = ?';
+            // HAVING clause should filter by the minimum average rating
+            $query .= ' HAVING avg_rating >= ?';
             $params[] = $rating;
         }
 
@@ -199,7 +217,9 @@ class Service {
             );
             $service->username = $row['username'];
             $service->thumbnailPath = $row['primary_image'] ?? 'uploads/images/default.png';
-            $service->rating = $row['avg_rating'] !== null ? round($row['avg_rating']) : 0;
+            // $service->rating = $row['avg_rating'] !== null ? round($row['avg_rating']) : 0; // Old rating
+            $service->averageRating = $row['avg_rating'] !== null ? round((float)$row['avg_rating'], 1) : null;
+            $service->numberOfRatings = (int)$row['num_ratings'];
             $services[] = $service;
         }
         return $services;

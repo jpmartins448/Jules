@@ -25,9 +25,11 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
 
     <select class="filter-dropdown" name="rating" id="ratingFilter">
       <option value="">Rating</option>
-      <option value="5" <?= ($rating == '5') ? 'selected' : '' ?>>★★★★★</option>
-      <option value="4" <?= ($rating == '4') ? 'selected' : '' ?>>★★★★☆</option>
-      <option value="3" <?= ($rating == '3') ? 'selected' : '' ?>>★★★☆☆</option>
+          <option value="5" <?= ($rating == '5') ? 'selected' : '' ?>>5 stars</option>
+          <option value="4" <?= ($rating == '4') ? 'selected' : '' ?>>4 stars</option>
+          <option value="3" <?= ($rating == '3') ? 'selected' : '' ?>>3 stars</option>
+          <option value="2" <?= ($rating == '2') ? 'selected' : '' ?>>2 stars</option>
+          <option value="1" <?= ($rating == '1') ? 'selected' : '' ?>>1 star</option>
     </select>
   </form>
 
@@ -47,9 +49,13 @@ function drawHomepage(array $services, array $categories, $category = '', $sort 
                 <p><?= htmlspecialchars($s->getTitle()) ?></p>
                 <p>
                   <?php
-                    $stars = str_repeat('<span class="star">★</span>', $s->getRating()) .
-                             str_repeat('<span class="star-empty">☆</span>', 5 - $s->getRating());
-                    echo $stars;
+            $avgRating = $s->getAverageRating();
+            $numRatings = $s->getNumberOfRatings();
+            if ($numRatings > 0 && $avgRating !== null) {
+                echo '<span class="star">★</span> ' . htmlspecialchars(number_format($avgRating, 1)) . ' (' . $numRatings . ' rating' . ($numRatings > 1 ? 's' : '') . ')';
+            } else {
+                echo 'nobody rated this service yet';
+            }
                   ?>
                 </p>
                 <p>$<?= number_format($s->getPrice(), 2) ?></p>
