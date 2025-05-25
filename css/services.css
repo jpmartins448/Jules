@@ -60,6 +60,8 @@
 .service-meta p:nth-child(3) {
   font-size: 18px;
   letter-spacing: 1px;
+  word-wrap: break-word; /* For older browser compatibility */
+  overflow-wrap: break-word; /* Standard property */
 }
 .service-meta p:nth-child(3)::before {
   content: '';

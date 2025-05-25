@@ -187,8 +187,9 @@ class Service {
         $query .= ' GROUP BY services.id ';
 
         if ($rating !== '') {
-            // HAVING clause should filter by the minimum average rating
-            $query .= ' HAVING avg_rating >= ?';
+            // HAVING clause should filter by the minimum average rating, rounded to one decimal place
+            // Explicitly cast the bound parameter to REAL
+            $query .= ' HAVING ROUND(avg_rating, 1) >= CAST(? AS REAL)';
             $params[] = $rating;
         }
 
